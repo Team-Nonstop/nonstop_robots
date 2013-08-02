@@ -1,5 +1,5 @@
 <package>
-  <name>turtlebot_bringup</name>
+  <name>turtlebot_nonstop_bringup</name>
   <version>2.1.1</version>
   <description>
      turtlebot_bringup provides roslaunch scripts for starting the TurtleBot base functionality. 

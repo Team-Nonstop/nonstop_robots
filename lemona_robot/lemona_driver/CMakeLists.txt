@@ -4,7 +4,7 @@ project(lemona_driver)
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED)
+find_package(catkin REQUIRED std_msgs nav_msgs geometry_msgs sensor_msgs roscpp tf roslib cereal_port)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -69,16 +69,16 @@ catkin_package(
 # )
 
 ## Declare a cpp executable
-# add_executable(lemona_driver_node src/lemona_driver_node.cpp)
+add_executable(lemona_node src/lemona_node.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
 # add_dependencies(lemona_driver_node lemona_driver_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(lemona_driver_node
-#   ${catkin_LIBRARIES}
-# )
+ target_link_libraries(cereal_port
+   ${catkin_LIBRARIES}
+ )
 
 #############
 ## Install ##

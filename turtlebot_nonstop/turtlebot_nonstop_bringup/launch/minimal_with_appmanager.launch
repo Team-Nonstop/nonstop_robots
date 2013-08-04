@@ -4,7 +4,7 @@
   <arg name="battery"    default="$(optenv TURTLEBOT_BATTERY /sys/class/power_supply/BAT0)"/>  <!-- /proc/acpi/battery/BAT0 -->
   <arg name="stacks"     default="$(optenv TURTLEBOT_STACKS hexagons)"/>  <!-- circles, hexagons -->
   <arg name="3d_sensor"  default="$(optenv TURTLEBOT_3D_SENSOR kinect)"/>  <!-- kinect, asus_xtion_pro -->
-  <arg name="safety_controller" default="$(optenv TURTLEBOT_SAFETY_CONTROLLER false)" />
+  <arg name="safety_controller" default="$(optenv TURTLEBOT_SAFETY_CONTROLLER true)" />
   <arg name="simulation" default="$(optenv TURTLEBOT_SIMULATION false)"/>
   <arg name="attached_marker" default="$(optenv TURTLEBOT_MARKER_BUNDLE 0)"/>
 
@@ -23,6 +23,7 @@
     <arg name="3d_sensor" value="$(arg 3d_sensor)"/>
     <arg name="simulation" value="$(arg simulation)"/>
     <arg name="safety_controller" value="$(arg safety_controller)" />
+    <arg name="attached_marker" value="$(arg attached_marker)" />
   </include>
 
 

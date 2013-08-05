@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!--
+  Attached_Marker stacks
+ -->
+<robot name="marker_bundle_1" xmlns:xacro="http://ros.org/wiki/xacro">
+  
+  <!-- Xacro properties -->
+
+
+  <xacro:macro name="attached_marker" params="parent marker_num direction x_loc y_loc z_loc r_deg p_deg y_deg">
+    <joint name="marker_bundle_${direction}_joint" type="fixed">
+      <origin xyz="${x_loc} ${y_loc} ${z_loc}" rpy="${r_deg} ${p_deg} ${y_deg}"/>
+      <parent link="${parent}"/>
+      <child link="marker_${direction}_link"/>
+    </joint>
+    <link name="marker_${direction}_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <!--<mesh filename="package://turtlebot_nonstop_description/meshes/markers/marker_${marker_num}.stl" scale="0.1 0.1 0.1"/>-->
+          <box size="0.1 0.1 0.001"/>
+        </geometry> 
+        <material name="am_${marker_num}">
+              <texture filename="package://turtlebot_nonstop_description/meshes/markers/images/MarkerTexture_${marker_num}.png" />
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.1 0.1 0.001"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="0.001"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+                 iyy="0.0001" iyz="0.0"
+                 izz="0.0001"/>
+      </inertial>
+    </link>
+  </xacro:macro>
+  
+  <xacro:macro name="marker_bundle_1" params="parent">
+    <attached_marker parent="${parent}" marker_num="4" direction="front" x_loc= "0.1" y_loc= "0" z_loc="0.5" r_deg="0" p_deg="1.570795" y_deg="0"/>
+    <attached_marker parent="${parent}" marker_num="5" direction="backward" x_loc= "-0.1" y_loc= "0" z_loc=".5" r_deg="3.14159" p_deg="1.570795" y_deg="0"/>
+    <attached_marker parent="${parent}" marker_num="6" direction="left" x_loc="0" y_loc= "-0.1" z_loc="0.5" r_deg="3.14159" p_deg="1.570795" y_deg="1.570795"/>
+    <attached_marker parent="${parent}" marker_num="7" direction="right" x_loc= "0" y_loc="0.1" z_loc="0.5" r_deg="0" p_deg="1.570795" y_deg="1.570795"/>
+      </xacro:macro>
+
+
+</robot>

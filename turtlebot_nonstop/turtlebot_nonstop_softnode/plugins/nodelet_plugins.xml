@@ -1,0 +1,8 @@
+<library path="lib/libsoftturtlebot_nonstop_nodelet">
+  <class name="turtlebot_nonstop_softnode/SoftTurtlebotNonstopNodelet" type="turtlebot_nonstop::SoftTurtlebotNonstopNodelet" base_class_type="nodelet::Nodelet">
+    <description>
+      Nodelet version of the soft Turtlebot Nonstop node
+    </description>
+  </class>
+</library>
+

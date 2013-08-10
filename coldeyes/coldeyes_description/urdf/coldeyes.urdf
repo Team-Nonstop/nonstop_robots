@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<robot name="coldeyes">
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <box size=".03 .03 .54"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 .280"/>
+      <material name="red">
+        <color rgba=".8 0 0 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <link name="camera_front">
+    <visual>
+      <geometry>
+        <box size=".09 .01 .02"/>
+      </geometry>
+      <origin rpy="1.57075 0 0" xyz="0 0 0"/>
+      <material name="blue">
+        <color rgba="0 0 1 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <joint name="base_to_camera_front" type="fixed">
+    <parent link="base_link"/>
+    <child link="camera_front"/>
+    <origin rpy="-1.57075 0 0" xyz="0 .0205 0.53"/>
+  </joint>
+
+  <link name="x_leg">
+    <visual>
+      <geometry>
+        <box size=".02 .02 .32"/>
+      </geometry>
+      <origin rpy="0 1.57075 1.57075" xyz="0 0 0"/>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <joint name="base_to_right_leg" type="fixed">
+    <parent link="base_link"/>
+    <child link="x_leg"/>
+    <origin xyz="0 0 0"/>
+  </joint>
+
+  <link name="y_leg">
+    <visual>
+      <geometry>
+        <box size=".02 .02 .32"/>
+      </geometry>
+      <origin rpy="1.57075 1.57075 1.57075" xyz="0 0 0"/>
+      <material name="white"/>
+    </visual>
+  </link>
+
+  <joint name="base_to_left_leg" type="fixed">
+    <parent link="base_link"/>
+    <child link="y_leg"/>
+    <origin xyz="0 0 0"/>
+  </joint>
+</robot>

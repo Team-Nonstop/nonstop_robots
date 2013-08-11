@@ -4,7 +4,7 @@ project(turtlebot_nonstop_description)
 find_package(catkin REQUIRED COMPONENTS urdf)
 
 catkin_package(
-   CATKIN_DEPENDS urdf xacro
+   CATKIN_DEPENDS urdf 
 )
 
 install(DIRECTORY robots

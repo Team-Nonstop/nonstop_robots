@@ -62,10 +62,10 @@
 
 
   <!--  ************* Navigation manager **************  -->
-  <include file="$(find sniperbot)/launch/includes/_master_ctrl.launch">
+  <!--<include file="$(find sniperbot)/launch/includes/_master_ctrl.launch">
     <arg name="debug_mode" value="true"/>
   </include>
-
+-->
 
 
 

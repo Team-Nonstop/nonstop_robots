@@ -49,7 +49,6 @@
   <run_depend>actionlib</run_depend>
   <run_depend>ar_track_alvar</run_depend>
   <run_depend>move_base_msgs</run_depend>
-  <run_depend>semantic_region_handler</run_depend>
   <run_depend>sensor_msgs</run_depend>
   <run_depend>turtlebot_nonstop_bringup</run_depend>
 

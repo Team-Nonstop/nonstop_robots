@@ -2,13 +2,10 @@
   sniperbot global navigation:
   - turtlebot
   - 3d sensor
-  - safety controller
   - auto-docking
   - ar marker tracker
   - navigation manager
   - move_base
-  - geometric map
-  - semantic map
   - amcl localization
   - rviz view (optional)
  -->
@@ -16,20 +13,35 @@
 <launch>
   <!-- Name of the map to use (without path nor extension) and initial position -->
   <arg name="map_name"       default="edu_room_cropped"/>
-  <arg name="initial_pose_x" value="2.0"/>
-  <arg name="initial_pose_y" value="2.0"/>
-  <arg name="initial_pose_a" value="0.0"/>
+  <arg name="initial_pose_x" default="2.0"/>
+  <arg name="initial_pose_y" default="2.0"/>
+  <arg name="initial_pose_a" default="0.0"/>
+  <arg name="marker_bundle" default="0"/>
+  <arg name="concert_name" default="$(optenv CONCERT_NAME nonstop_concert)"/> 
+  <arg name="robot_name" default="$(optenv ROBOT_NAME sniper)"/>
+  <arg name="robot_type" default="$(optenv ROBOT_TYPE sniperbot)"/>
+  <arg name="rapp_lists" default="$(optenv RAPP_LIST nonstop_rapps/nonstop.rapps)"/>
+  <arg name="robot_icon" default="sniperbot/sniperbot.png"/>
+  <arg name="gateway_watch_loop_period" default="10"/> 
 
-  <!--  *********** Turtlebot and 3d sensor ***********  -->
-  <include file="$(find turtlebot_nonstop_bringup)/launch/minimal.launch"/>
+  <!--  *********** Turtlebot ***********  -->
+  <include file="$(find turtlebot_nonstop_bringup)/launch/minimal_with_appmanager.launch">
+    <arg name="safety_controller" value="true"/>
+    <arg name="attached_marker"  value="$(arg marker_bundle)"/>
+    <arg name="concert_name" value="$(arg concert_name)"/> 
+    <arg name="robot_name" value="$(arg robot_name)"/>
+    <arg name="robot_type" value="$(arg robot_type)"/>
+    <arg name="rapp_lists" value="$(arg rapp_lists)"/>
+    <arg name="robot_icon" value="$(arg robot_icon)"/>
+    <arg name="gateway_watch_loop_period" value="$(arg gateway_watch_loop_period)"/> 
+
+  </include>
   <include file="$(find turtlebot_nonstop_bringup)/launch/3dsensor.launch">
     <arg name="rgb_processing" value="true"/>
     <arg name="scan_processing" value="true"/>
     <arg name="depth_processing" value="false"/>
   </include>
 
-  <!--  ***** Kobuki mobile base safety controller ****  -->
-  <include file="$(find sniperbot)/launch/includes/_safety_ctrl.launch"/>
 
   <!-- Reconfigure command velocity multiplexer to fit sniperbot needs. Just set the parameter doesn't work
        if we start the sniperbot rapp with app manager; we must explicitly call the reconfigure service -->
@@ -40,25 +52,25 @@
   <include file="$(find sniperbot)/launch/includes/_autodock.launch"/>
 
   <!--  ********** Alvar AR markers tracker ***********  -->
+
   <include file="$(find sniperbot)/launch/includes/_ar_tracker.launch">
     <arg name="max_frequency" value="4.0"/>  <!-- This is a CPU-hungry bastard; reduce its rate --> 
   </include>
+
+
+
+
 
   <!--  ************* Navigation manager **************  -->
   <include file="$(find sniperbot)/launch/includes/_master_ctrl.launch">
     <arg name="debug_mode" value="true"/>
   </include>
 
+
+
+
   <!--  ************** Rosnav move base ***************  -->
   <include file="$(find sniperbot)/launch/includes/_move_base.launch"/>
-
-  <!--  ****** Geometric and semantic map servers *****  -->
-  <node name="map_server" pkg="map_server" type="map_server" args="$(find cafe_concert)/maps/$(arg map_name).yaml">
-    <param name="frame_id" value="/map"/>
-  </node>
-  <include file="$(find semantic_region_handler)/launch/data_publisher_from_file.launch"/>
-<!-- 
-  <include file="$(find cafe_rapps)/rapps/database/cafe_database.launch"/>-->
 
   <!--  ******************** Amcl *********************  -->
   <include file="$(find sniperbot)/launch/includes/_amcl.launch">

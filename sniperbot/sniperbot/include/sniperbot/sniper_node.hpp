@@ -14,10 +14,10 @@
 #include <kobuki_msgs/SensorState.h>
 #include <kobuki_msgs/DigitalInputEvent.h>
 
-#include <cafe_msgs/Status.h>
-#include <cafe_msgs/Order.h>
-#include <cafe_msgs/DeliverOrderAction.h>
-#include <semantic_region_handler/TablePoseList.h>
+//#include <cafe_msgs/Status.h>
+//#include <cafe_msgs/Order.h>
+//#include <cafe_msgs/DeliverOrderAction.h>
+//#include <semantic_region_handler/TablePoseList.h>
 
 #include "sniperbot/ar_markers.hpp"
 #include "sniperbot/nav_watchdog.hpp"
@@ -53,10 +53,10 @@ public:
   void odometryCB(const nav_msgs::Odometry::ConstPtr& msg);
   void digitalInputCB(const kobuki_msgs::DigitalInputEvent::ConstPtr& msg);
   void coreSensorsCB(const kobuki_msgs::SensorState::ConstPtr& msg);
-  void tablePosesCB(const semantic_region_handler::TablePoseList::ConstPtr& msg);
+  //void tablePosesCB(const semantic_region_handler::TablePoseList::ConstPtr& msg);
 
   void deliverOrderCB();
-  void preemptOrderCB();
+  //void preemptOrderCB();
 
 protected:
   const double SPOT_BASE_MARKER_TIMEOUT;
@@ -66,11 +66,11 @@ protected:
   std::string node_name_;
 
   // NodeHandle instance must be created before this line. Otherwise strange error may occur
-  actionlib::SimpleActionServer<cafe_msgs::DeliverOrderAction> as_;
+  //actionlib::SimpleActionServer<cafe_msgs::DeliverOrderAction> as_;
 
   // create messages that are used to published feedback/result
-  cafe_msgs::DeliverOrderFeedback feedback_;
-  cafe_msgs::DeliverOrderResult   result_;
+ // cafe_msgs::DeliverOrderFeedback feedback_;
+ // cafe_msgs::DeliverOrderResult   result_;
 
   /*********************
   ** Publishers
@@ -78,23 +78,23 @@ protected:
   ros::Publisher led_1_pub_;
   ros::Publisher led_2_pub_;
   ros::Publisher sound_pub_;
-  ros::Publisher table_marker_pub_;
+  //ros::Publisher table_marker_pub_;
 
   /*********************
   ** Subscribers
   **********************/
   ros::Subscriber digital_input_sub_;
   ros::Subscriber core_sensors_sub_;
-  ros::Subscriber table_poses_sub_;
+  //ros::Subscriber table_poses_sub_;
 
   ARMarkers   ar_markers_;
   NavWatchdog nav_watchd_;
   Navigator   navigator_;
 
   geometry_msgs::PoseStamped             pickup_pose_;
-  semantic_region_handler::TablePoseList table_poses_;
+  //semantic_region_handler::TablePoseList table_poses_;
   kobuki_msgs::SensorState core_sensors_;
-  cafe_msgs::Order order_;
+  //cafe_msgs::Order order_;
   std::string global_frame_;
 
   // LED blinking attributes; TODO make a separate HRI class
@@ -110,7 +110,7 @@ protected:
 
   bool wait_for_button_;
 
-  bool processOrder(cafe_msgs::Order& order);
+ // bool processOrder(cafe_msgs::Order& order);
   bool getReadyToWork();
   bool waitForPoses();
   bool waitForButton();
@@ -131,17 +131,17 @@ protected:
   {
     switch (status)
     {
-      case cafe_msgs::Status::IDLE                          : return "idle";
-      case cafe_msgs::Status::GO_TO_KITCHEN                 : return "going to kitchen";
-      case cafe_msgs::Status::ARRIVE_KITCHEN                : return "arrived to kitchen";
-      case cafe_msgs::Status::WAITING_FOR_KITCHEN           : return "waiting for kitchen";
-      case cafe_msgs::Status::IN_DELIVERY                   : return "going to table";
-      case cafe_msgs::Status::ARRIVE_TABLE                  : return "arrived to table";
-      case cafe_msgs::Status::WAITING_FOR_USER_CONFIRMATION : return "waiting for customer";
-      case cafe_msgs::Status::COMPLETE_DELIVERY             : return "delivery completed";
-      case cafe_msgs::Status::RETURNING_TO_DOCK             : return "going to base";
-      case cafe_msgs::Status::END_DELIVERY_ORDER            : return "order completed";
-      case cafe_msgs::Status::ERROR                         : return "error";
+//      case cafe_msgs::Status::IDLE                          : return "idle";
+//      case cafe_msgs::Status::GO_TO_KITCHEN                 : return "going to kitchen";
+//      case cafe_msgs::Status::ARRIVE_KITCHEN                : return "arrived to kitchen";
+//      case cafe_msgs::Status::WAITING_FOR_KITCHEN           : return "waiting for kitchen";
+//      case cafe_msgs::Status::IN_DELIVERY                   : return "going to table";
+//      case cafe_msgs::Status::ARRIVE_TABLE                  : return "arrived to table";
+//      case cafe_msgs::Status::WAITING_FOR_USER_CONFIRMATION : return "waiting for customer";
+//      case cafe_msgs::Status::COMPLETE_DELIVERY             : return "delivery completed";
+//      case cafe_msgs::Status::RETURNING_TO_DOCK             : return "going to base";
+//      case cafe_msgs::Status::END_DELIVERY_ORDER            : return "order completed";
+//      case cafe_msgs::Status::ERROR                         : return "error";
       default                                               : return "UNRECOGNIZED STATUS";
     }
   }

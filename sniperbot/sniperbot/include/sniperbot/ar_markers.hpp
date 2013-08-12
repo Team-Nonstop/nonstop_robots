@@ -19,9 +19,9 @@
 #include <geometry_msgs/PoseWithCovarianceStamped.h>
 #include <ar_track_alvar/AlvarMarkers.h>
 
-#include "waiterbot/common.hpp"
+#include "sniperbot/common.hpp"
 
-namespace waiterbot
+namespace sniperbot
 {
 
 class ARMarkers
@@ -181,6 +181,6 @@ private:
   }
 };
 
-} /* namespace waiterbot */
+} /* namespace sniperbot */
 
 #endif /* AR_MARKERS_HPP_ */

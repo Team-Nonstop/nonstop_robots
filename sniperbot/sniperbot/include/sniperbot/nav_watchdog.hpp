@@ -17,7 +17,7 @@
 //#include <move_base_msgs/MoveBaseActionResult.h>
 
 
-namespace waiterbot
+namespace sniperbot
 {
 
 #define LOCALIZED_ARMK   0x0001
@@ -73,6 +73,6 @@ private:
   double max(double a, double b, double c, double d, double e)  { return max(max(a, b, c, d), e); }
 };
 
-} /* namespace waiterbot */
+} /* namespace sniperbot */
 
 #endif /* NAV_WATCHDOG_HPP_ */

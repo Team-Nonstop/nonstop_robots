@@ -1,13 +1,13 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(sniperbot_node)
+project(sniperbot)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED COMPONENTS actionlib actionlib_msgs ar_track_alvar  sensor_msgs)
+find_package(catkin REQUIRED COMPONENTS actionlib actionlib_msgs ar_track_alvar sensor_msgs)
 
 ## System dependencies are found with CMake's conventions
-# find_package(Boost REQUIRED COMPONENTS system)
+ find_package(Boost REQUIRED COMPONENTS system)
 
 
 ## Uncomment this if the package has a setup.py. This macro ensures
@@ -49,10 +49,10 @@ find_package(catkin REQUIRED COMPONENTS actionlib actionlib_msgs ar_track_alvar 
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES sniperbot
-#  CATKIN_DEPENDS actionlib actionlib_msgs ar_track_alvar move_base_msgs semantic_region_handler sensor_msgs
-#  DEPENDS system_lib
+  INCLUDE_DIRS include
+  LIBRARIES sniperbot
+  CATKIN_DEPENDS actionlib actionlib_msgs ar_track_alvar move_base_msgs sensor_msgs
+  DEPENDS system_lib
 )
 
 ###########
@@ -62,9 +62,7 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 # include_directories(include)
-include_directories(
-  ${catkin_INCLUDE_DIRS}
-)
+include_directories(include ${catkin_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS})
 
 ## Declare a cpp library
 # add_library(sniperbot
@@ -72,16 +70,28 @@ include_directories(
 # )
 
 ## Declare a cpp executable
-# add_executable(sniperbot_node src/sniperbot_node.cpp)
+
+
+
+
+add_executable(sniper_node src/sniper_node.cpp src/sniper_callbacks.cpp src/ar_markers.cpp src/nav_watchdog.cpp src/navigator.cpp src/common.cpp)
+#src/sniper_tasks.cpp src/sniper_shot_handles.cpp
+
+
+
+
+#add_dependencies(sniperbot_node cafe_msgs_generate_messages_cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
 # add_dependencies(sniperbot_node sniperbot_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(sniperbot_node
-#   ${catkin_LIBRARIES}
-# )
+
+target_link_libraries(sniper_node
+  ${catkin_LIBRARIES}
+)
+
 
 #############
 ## Install ##

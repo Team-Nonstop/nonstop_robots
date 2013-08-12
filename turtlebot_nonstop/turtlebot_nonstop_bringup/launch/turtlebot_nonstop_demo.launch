@@ -19,10 +19,10 @@
   <arg name="marker_bundle" default="0"/>
 
   <arg name="concert_name" default="$(optenv CONCERT_NAME nonstop_concert)"/> 
-  <arg name="robot_name" default="$(optenv ROBOT_NAME sniper)"/>
-  <arg name="robot_type" default="$(optenv ROBOT_TYPE sniperbot)"/>
+  <arg name="robot_name" default="$(optenv ROBOT_NAME stroller)"/>
+  <arg name="robot_type" default="$(optenv ROBOT_TYPE turtlebot_nonstop)"/>
   <arg name="rapp_lists" default="$(optenv RAPP_LIST nonstop_rapps/nonstop.rapps)"/>
-  <arg name="robot_icon" default="sniperbot_node/sniperbot.png"/>
+  <arg name="robot_icon" default="turtlebot_nonstop_bringup/turtlebot2.png"/>
   <arg name="gateway_watch_loop_period" default="10"/> 
 
 
@@ -45,15 +45,6 @@
     <arg name="depth_processing" value="false"/>
   </include>
 
-
-  <!-- Reconfigure command velocity multiplexer to fit sniperbot needs. Just set the parameter doesn't work
-       if we start the sniperbot rapp with app manager; we must explicitly call the reconfigure service -->
-  <node pkg="rosservice" type="rosservice" name="reconfig_vel_mux" args="call --wait /cmd_vel_mux/set_parameters
-            '{config:{strs:[[yaml_cfg_file,$(find sniperbot_bringup)/param/vel_multiplexer.yaml]]}}'"/>
-
-  <!--  ******** Kobuki auto-docking controller *******  -->
-  <include file="$(find sniperbot_node)/launch/includes/_autodock.launch"/>
-
   <!--  ********** Alvar AR markers tracker ***********  -->
 
   <include file="$(find sniperbot_node)/launch/includes/_ar_tracker.launch">
@@ -61,23 +52,5 @@
   </include>
 
 
-
-
-
-  <!--  ************* Navigation manager **************  -->
-  <include file="$(find sniperbot_node)/launch/includes/_master_ctrl.launch">
-    <arg name="debug_mode" value="true"/>
-  </include>
-
-  <!--  ************** Rosnav move base ***************  -->
-  <include file="$(find sniperbot_node)/launch/includes/_move_base.launch"/>
-
-  <!--  ******************** Amcl *********************  -->
-  <include file="$(find sniperbot_node)/launch/includes/_amcl.launch">
-    <arg name="scan_topic" value="/scan"/>
-    <arg name="initial_pose_x" value="$(arg initial_pose_x)"/>
-    <arg name="initial_pose_y" value="$(arg initial_pose_y)"/>
-    <arg name="initial_pose_a" value="$(arg initial_pose_a)"/>
-  </include>
 
 </launch>

@@ -27,15 +27,9 @@
 
 
   <!--  *********** Turtlebot with Appmanager ***********  -->
-  <include file="$(find turtlebot_nonstop_bringup)/launch/minimal_with_appmanager.launch">
+  <include file="$(find turtlebot_nonstop_bringup)/launch/minimal.launch">
     <arg name="safety_controller" value="true"/>
     <arg name="attached_marker"  value="$(arg marker_bundle)"/>
-    <arg name="concert_name" value="$(arg concert_name)"/> 
-    <arg name="robot_name" value="$(arg robot_name)"/>
-    <arg name="robot_type" value="$(arg robot_type)"/>
-    <arg name="rapp_lists" value="$(arg rapp_lists)"/>
-    <arg name="robot_icon" value="$(arg robot_icon)"/>
-    <arg name="gateway_watch_loop_period" value="$(arg gateway_watch_loop_period)"/> 
   </include>
 
   <!-- ************ 3D Sensor *************** -->

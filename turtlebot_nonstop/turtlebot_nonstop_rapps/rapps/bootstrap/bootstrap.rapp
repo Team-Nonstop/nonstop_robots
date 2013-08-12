@@ -1,0 +1,5 @@
+display: Turtlebot_Nonstop bootstrap
+description: Turtlebot_Nonstop bootstrap 
+platform: linux.ros.turtlebot_nonstop
+launch: turtlebot_nonstop_rapps/bootstrap.launch
+interface: turtlebot_nonstop_rapps/bootstrap.interface

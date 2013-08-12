@@ -1,0 +1,5 @@
+# Turtlebot Nonstop RApps
+apps:
+#  - turtlebot_nonstop_rapps/bootstrap
+  - turtlebot_nonstop_rapps/navigation
+

@@ -1,0 +1,83 @@
+<!--
+  sniperbot global navigation:
+  - turtlebot
+  - 3d sensor
+  - auto-docking
+  - ar marker tracker
+  - navigation manager
+  - move_base
+  - amcl localization
+  - rviz view (optional)
+ -->
+
+<launch>
+  <arg name="initial_pose_x" default="2.0"/>
+  <arg name="initial_pose_y" default="2.0"/>
+  <arg name="initial_pose_a" default="0.0"/>
+
+
+  <arg name="marker_bundle" default="0"/>
+
+  <arg name="concert_name" default="$(optenv CONCERT_NAME nonstop_concert)"/> 
+  <arg name="robot_name" default="$(optenv ROBOT_NAME sniper)"/>
+  <arg name="robot_type" default="$(optenv ROBOT_TYPE sniperbot)"/>
+  <arg name="rapp_lists" default="$(optenv RAPP_LIST nonstop_rapps/nonstop.rapps)"/>
+  <arg name="robot_icon" default="sniperbot/sniperbot.png"/>
+  <arg name="gateway_watch_loop_period" default="10"/> 
+
+
+  <!--  *********** Turtlebot with Appmanager ***********  -->
+  <include file="$(find turtlebot_nonstop_bringup)/launch/minimal_with_appmanager.launch">
+    <arg name="safety_controller" value="true"/>
+    <arg name="attached_marker"  value="$(arg marker_bundle)"/>
+    <arg name="concert_name" value="$(arg concert_name)"/> 
+    <arg name="robot_name" value="$(arg robot_name)"/>
+    <arg name="robot_type" value="$(arg robot_type)"/>
+    <arg name="rapp_lists" value="$(arg rapp_lists)"/>
+    <arg name="robot_icon" value="$(arg robot_icon)"/>
+    <arg name="gateway_watch_loop_period" value="$(arg gateway_watch_loop_period)"/> 
+  </include>
+
+  <!-- ************ 3D Sensor *************** -->
+  <include file="$(find turtlebot_nonstop_bringup)/launch/3dsensor.launch">
+    <arg name="rgb_processing" value="true"/>
+    <arg name="scan_processing" value="true"/>
+    <arg name="depth_processing" value="false"/>
+  </include>
+
+
+  <!-- Reconfigure command velocity multiplexer to fit sniperbot needs. Just set the parameter doesn't work
+       if we start the sniperbot rapp with app manager; we must explicitly call the reconfigure service -->
+  <node pkg="rosservice" type="rosservice" name="reconfig_vel_mux" args="call --wait /cmd_vel_mux/set_parameters
+            '{config:{strs:[[yaml_cfg_file,$(find sniperbot_bringup)/param/vel_multiplexer.yaml]]}}'"/>
+
+  <!--  ******** Kobuki auto-docking controller *******  -->
+  <include file="$(find sniperbot)/launch/includes/_autodock.launch"/>
+
+  <!--  ********** Alvar AR markers tracker ***********  -->
+
+  <include file="$(find sniperbot)/launch/includes/_ar_tracker.launch">
+    <arg name="max_frequency" value="4.0"/>  <!-- This is a CPU-hungry bastard; reduce its rate --> 
+  </include>
+
+
+
+
+
+  <!--  ************* Navigation manager **************  -->
+  <include file="$(find sniperbot)/launch/includes/_master_ctrl.launch">
+    <arg name="debug_mode" value="true"/>
+  </include>
+
+  <!--  ************** Rosnav move base ***************  -->
+  <include file="$(find sniperbot)/launch/includes/_move_base.launch"/>
+
+  <!--  ******************** Amcl *********************  -->
+  <include file="$(find sniperbot)/launch/includes/_amcl.launch">
+    <arg name="scan_topic" value="/scan"/>
+    <arg name="initial_pose_x" value="$(arg initial_pose_x)"/>
+    <arg name="initial_pose_y" value="$(arg initial_pose_y)"/>
+    <arg name="initial_pose_a" value="$(arg initial_pose_a)"/>
+  </include>
+
+</launch>

@@ -11,22 +11,9 @@
  -->
 
 <launch>
-  <arg name="initial_pose_x" default="2.0"/>
-  <arg name="initial_pose_y" default="2.0"/>
-  <arg name="initial_pose_a" default="0.0"/>
-
-
   <arg name="marker_bundle" default="0"/>
 
-  <arg name="concert_name" default="$(optenv CONCERT_NAME nonstop_concert)"/> 
-  <arg name="robot_name" default="$(optenv ROBOT_NAME stroller)"/>
-  <arg name="robot_type" default="$(optenv ROBOT_TYPE turtlebot_nonstop)"/>
-  <arg name="rapp_lists" default="$(optenv RAPP_LIST nonstop_rapps/nonstop.rapps)"/>
-  <arg name="robot_icon" default="turtlebot_nonstop_bringup/turtlebot2.png"/>
-  <arg name="gateway_watch_loop_period" default="10"/> 
-
-
-  <!--  *********** Turtlebot with Appmanager ***********  -->
+  <!--  *********** Turtlebot ***********  -->
   <include file="$(find turtlebot_nonstop_bringup)/launch/minimal.launch">
     <arg name="safety_controller" value="true"/>
     <arg name="attached_marker"  value="$(arg marker_bundle)"/>
@@ -40,11 +27,8 @@
   </include>
 
   <!--  ********** Alvar AR markers tracker ***********  -->
-
   <include file="$(find sniperbot)/launch/includes/_ar_tracker.launch">
     <arg name="max_frequency" value="4.0"/>  <!-- This is a CPU-hungry bastard; reduce its rate --> 
   </include>
-
-
 
 </launch>

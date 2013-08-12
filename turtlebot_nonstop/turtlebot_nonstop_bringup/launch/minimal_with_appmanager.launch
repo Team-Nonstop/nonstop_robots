@@ -1,7 +1,7 @@
 <launch>
   <!-- Turtlebot -->
   <arg name="base"       default="$(optenv TURTLEBOT_BASE kobuki)"/>  <!-- create, rhoomba -->
-  <arg name="battery"    default="$(optenv TURTLEBOT_BATTERY /sys/class/power_supply/BAT0)"/>  <!-- /proc/acpi/battery/BAT0 -->
+  <arg name="battery"    default="$(optenv TURTLEBOT_BATTERY /proc/acpi/battery/BAT0)"/>  <!-- /proc/acpi/battery/BAT0 -->
   <arg name="stacks"     default="$(optenv TURTLEBOT_STACKS hexagons)"/>  <!-- circles, hexagons -->
   <arg name="3d_sensor"  default="$(optenv TURTLEBOT_3D_SENSOR kinect)"/>  <!-- kinect, asus_xtion_pro -->
   <arg name="safety_controller" default="$(optenv TURTLEBOT_SAFETY_CONTROLLER true)" />
@@ -14,7 +14,7 @@
   <arg name="robot_type" default="$(optenv ROBOT_TYPE turtlebot)"/>
   <arg name="rapp_lists" default="$(optenv RAPP_LIST nonstop_rapps/nonstop.rapps)"/>
   <arg name="robot_icon" default="turtlebot_nonstop_bringup/turtlebot2.png"/>
-  <arg name="gateway_watch_loop_period" default="10"/> <!-- Polling period for multimaster advertising/flipping -->
+  <arg name="gateway_watch_loop_period" default="1"/> <!-- Polling period for multimaster advertising/flipping -->
 
 
 
@@ -35,6 +35,6 @@
     <arg name="robot_type" value="$(arg robot_type)"/>
     <arg name="robot_icon" value="$(arg robot_icon)"/>
     <arg name="rapp_lists" value="$(arg rapp_lists)"/>
-    <arg name="gateway_watch_loop_period" default="10"/>
+    <arg name="gateway_watch_loop_period" default="1"/>
   </include>
 </launch>

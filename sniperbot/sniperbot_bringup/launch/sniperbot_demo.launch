@@ -27,7 +27,7 @@
 
 
   <!--  *********** Turtlebot with Appmanager ***********  -->
-  <include file="$(find turtlebot_nonstop_bringup)/launch/minimal_with_appmanager.launch">
+  <include file="$(find turtlebot_nonstop_bringup)/launch/minimal.launch">
     <arg name="safety_controller" value="true"/>
     <arg name="attached_marker"  value="$(arg marker_bundle)"/>
     <arg name="concert_name" value="$(arg concert_name)"/> 

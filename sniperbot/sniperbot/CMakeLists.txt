@@ -74,7 +74,7 @@ include_directories(include ${catkin_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS})
 
 
 
-add_executable(sniper_node src/sniper_node.cpp src/sniper_callbacks.cpp src/ar_markers.cpp src/nav_watchdog.cpp src/navigator.cpp src/common.cpp)
+#add_executable(sniper_node src/sniper_node.cpp src/sniper_callbacks.cpp src/ar_markers.cpp src/nav_watchdog.cpp src/navigator.cpp src/common.cpp)
 #src/sniper_tasks.cpp src/sniper_shot_handles.cpp
 
 
@@ -88,9 +88,9 @@ add_executable(sniper_node src/sniper_node.cpp src/sniper_callbacks.cpp src/ar_m
 
 ## Specify libraries to link a library or executable target against
 
-target_link_libraries(sniper_node
-  ${catkin_LIBRARIES}
-)
+#target_link_libraries(sniper_node
+#  ${catkin_LIBRARIES}
+#)
 
 
 #############

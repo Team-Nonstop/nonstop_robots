@@ -11,13 +11,10 @@
  -->
 
 <launch>
-  <arg name="marker_bundle" default="0"/>
-
-  <!--  *********** Turtlebot ***********  -->
-  <include file="$(find turtlebot_nonstop_bringup)/launch/minimal.launch">
-    <arg name="safety_controller" value="true"/>
-    <arg name="attached_marker"  value="$(arg marker_bundle)"/>
-  </include>
+  
+  <arg name="initial_pose_x" default="0.0"/> <!-- Use 17.0 for willow's map in simulation -->
+  <arg name="initial_pose_y" default="0.0"/> <!-- Use 17.0 for willow's map in simulation -->
+  <arg name="initial_pose_a" default="0.0"/>
 
   <!-- ************ 3D Sensor *************** -->
   <include file="$(find turtlebot_nonstop_bringup)/launch/3dsensor.launch">
@@ -30,4 +27,13 @@
   <include file="$(find sniperbot)/launch/includes/_ar_tracker.launch">
     <arg name="max_frequency" value="3.0"/>  <!-- This is a CPU-hungry bastard; reduce its rate --> 
   </include>
+
+  <include file="$(find turtlebot_navigation)/launch/includes/_amcl.launch">
+    <arg name="initial_pose_x" value="$(arg initial_pose_x)"/>
+    <arg name="initial_pose_y" value="$(arg initial_pose_y)"/>
+    <arg name="initial_pose_a" value="$(arg initial_pose_a)"/>
+  </include>
+
+  <include file="$(find turtlebot_navigation)/launch/includes/_move_base.launch"/>
+
 </launch>

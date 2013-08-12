@@ -1,6 +1,8 @@
 <launch>
   <include file="$(find turtlebot_nonstop_bringup)/launch/turtlebot_nonstop_demo.launch"/>
-  <node pkg="tf" type="static_transform_publisher" name="base_ref" args="0 0 0 0 0 0 /map /odom 100" />
+<!-- TTTTTTTOOOOOOOOOODDDDDDDDDDOOOOOOOOOO -->
+  <node pkg="tf" type="static_transform_publisher" name="base_ref" args="-1 0 0 0 0 0 /map /odom 100" />
+
   <node pkg="robot_pose_publisher" name="robot_pose_publisher" type="robot_pose_publisher">
     <rosparam>
       is_stamped: true

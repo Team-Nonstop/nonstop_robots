@@ -40,12 +40,12 @@
   <!--  ************** Rosnav move base ***************  -->
   <include file="$(find turtlebot_nonstop_bringup)/launch/includes/_move_base.launch"/>
 
-<!--  ******************** Amcl ********************* 
+<!--  ******************** Amcl ********************* -->
   <include file="$(find turtlebot_nonstop_bringup)/launch/includes/_amcl.launch">
-    <arg name="scan_topic" value="/scan"/>
+    <arg name="scan_topic" value="camera/scan"/>
     <arg name="initial_pose_x" value="$(arg initial_pose_x)"/>
     <arg name="initial_pose_y" value="$(arg initial_pose_y)"/>
     <arg name="initial_pose_a" value="$(arg initial_pose_a)"/>
   </include>
--->
+
 </launch>

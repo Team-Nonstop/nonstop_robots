@@ -1,0 +1,5 @@
+display: Coldeyes
+description: The Supervisior of concert 
+platform: linux.ros.coldeyes
+launch: coldeyes_rapps/coldeyes.launch
+interface: coldeyes_rapps/coldeyes.interface

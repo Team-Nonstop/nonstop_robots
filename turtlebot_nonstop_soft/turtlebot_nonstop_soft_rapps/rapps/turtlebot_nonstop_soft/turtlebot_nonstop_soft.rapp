@@ -1,0 +1,5 @@
+display: Turtlebot_Nonstop_Soft Navigation
+description: The boy navigates around the map. SOFT version
+platform: linux.ros.turtlebot_nonstop_soft
+launch: nonstop_rapps/turtlebot_nonstop_soft.launch
+interface: nonstop_rapps/turtlebot_nonstop_soft.interface

@@ -9,8 +9,8 @@
         <arg name="urdf_file" default="$(find xacro)/xacro.py '$(find coldeyes_description)/robots/coldeyes_marker.urdf.xacro'" />
   		<param name="robot_description" command="$(arg urdf_file)" />
         <param name="~tf_prefix" value="watcher" />
-
-        <node pkg="tf" type="static_transform_publisher" name="map_to_base_link" args="0 0 0 0 0 0 map watcher/base_link 10" /> 	<!--<node pkg="tf" type="static_transform_publisher" name="map_to_backward_usb_cam" args="0 -0.1 0.5 -1.57 0 1.57 map usb_cam_backward 10" />-->
+        <node pkg="tf" type="static_transform_publisher" name="map_to_fake_base_link" args="0 0 0 0 0 0 map base_link 10" />
+        <node pkg="tf" type="static_transform_publisher" name="map_to_real_base_link" args="0 0 0 0 0 0 map watcher/base_link 10" /> 	<!--<node pkg="tf" type="static_transform_publisher" name="map_to_backward_usb_cam" args="0 -0.1 0.5 -1.57 0 1.57 map usb_cam_backward 10" />-->
 
 
 	<node ns="front" pkg="image_proc" type="image_proc" name="image_proc"/>

@@ -4,7 +4,7 @@ project(handheld_mapper_driver)
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED COMPONENTS cereal_port roscpp)
+find_package(catkin REQUIRED COMPONENTS cereal_port roscpp tf geometry_msgs nav_msgs roscpp roslib sensor_msgs std_msgs)
 
 ## System dependencies are found with CMake's conventions
 find_package(Boost REQUIRED COMPONENTS system)
@@ -51,7 +51,7 @@ find_package(Boost REQUIRED COMPONENTS system)
 catkin_package(
   INCLUDE_DIRS include
   LIBRARIES handheld_mapper_driver
-  CATKIN_DEPENDS cereal_port roscpp
+  CATKIN_DEPENDS cereal_port geometry_msgs nav_msgs roscpp roslib sensor_msgs std_msgs tf
   DEPENDS system_lib
 )
 

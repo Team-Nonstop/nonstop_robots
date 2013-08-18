@@ -7,6 +7,13 @@
   <xacro:include filename="$(find handheld_mapper_description)/urdf/common_properties.urdf.xacro"/>
 
   <xacro:macro name="handheld_mapper">
+<link name="base_footprint"/>
+    <joint name="base_joint" type="fixed">
+      <origin xyz="0 0 0.0015" rpy="0 0 0" />
+      <parent link="base_footprint"/>
+      <child link="base_link" />
+    </joint>
+
     <link name="base_link">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />

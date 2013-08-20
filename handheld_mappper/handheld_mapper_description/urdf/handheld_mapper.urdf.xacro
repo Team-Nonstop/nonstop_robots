@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+
+<root
+      xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- Included URDF Files -->
+  <xacro:include filename="$(find handheld_mapper_description)/urdf/common_properties.urdf.xacro"/>
+
+  <xacro:macro name="handheld_mapper">
+<link name="base_footprint"/>
+    <joint name="base_joint" type="fixed">
+      <origin xyz="0 0 0.0015" rpy="0 0 0" />
+      <parent link="base_footprint"/>
+      <child link="base_link" />
+    </joint>
+
+    <link name="base_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0.26 0.18 0.03"/>
+        </geometry>
+        <material name="white"/>
+      </visual>
+    </link>
+
+    <!-- laser -->
+    <xacro:hokuyo_04lx_laser name="hokuyo" parent="base">
+      <origin xyz="-0.075 0 0.003" rpy="0 0 0" />
+    </xacro:hokuyo_04lx_laser>
+
+    <!-- imu -->
+    <joint name="base_to_imu" type="fixed">
+      <parent link="base_link"/>
+      <child link="imu"/>
+      <origin xyz="0.075 0.01 0.04"/>
+    </joint>
+
+    <link name="imu">
+      <visual>
+        <geometry>
+          <box size=".013 .024 .002"/>
+        </geometry>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <material name="white"/>
+      </visual>
+    </link>
+  </xacro:macro>
+</root>

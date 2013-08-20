@@ -1,0 +1,5 @@
+display: Turtlebot_Nonstop Navigation
+description: Turtlebot_Nonstop navigate 
+platform: linux.ros.turtlebot_nonstop
+launch: turtlebot_nonstop_rapps/turtlebot_nonstop.launch
+interface: turtlebot_nonstop_rapps/turtlebot_nonstop.interface

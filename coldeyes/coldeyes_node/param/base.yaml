@@ -1,0 +1,5 @@
+
+# Name of the odometry TF frame (string, default: odom)
+odom_frame: odom
+# Name of the base TF frame  (string, default: base_footprint)
+base_frame: base_link

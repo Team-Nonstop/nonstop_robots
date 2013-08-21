@@ -1,6 +1,7 @@
 subscribers: 
   - map
   - map_metadata
+  - initialpose
 publishers: 
   - visualization_marker
   - robot_pose

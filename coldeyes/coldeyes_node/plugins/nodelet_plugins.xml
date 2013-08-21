@@ -1,0 +1,8 @@
+<library path="lib/libcoldeyes_node_nodelet">
+  <class name="coldeyes_node/ColdeyesNodeNodelet" type="coldeyes_node::ColdeyesNodeNodelet" base_class_type="nodelet::Nodelet">
+    <description>
+      Nodelet version of the Coldeyes node
+    </description>
+  </class>
+</library>
+

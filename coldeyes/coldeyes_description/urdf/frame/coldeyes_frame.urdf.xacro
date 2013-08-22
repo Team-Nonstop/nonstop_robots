@@ -16,14 +16,27 @@
   <link name="camera_front">
     <visual>
       <geometry>
-        <box size=".09 .01 .02"/>
+        <box size=".01 .01 .02"/>
       </geometry>
-      <origin rpy="1.57075 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57075 0 3.141592" xyz="0 0 0"/>
       <material name="blue">
         <color rgba="0 0 1 1"/>
       </material>
     </visual>
   </link>
+
+  <link name="camera_backward">
+    <visual>
+      <geometry>
+        <box size=".09 .01 .02"/>
+      </geometry>
+      <origin rpy="1.57075 0 0" xyz="0 0 0"/>
+      <material name="green">
+        <color rgba="0 1 0 1"/>
+      </material>
+    </visual>
+  </link>
+
 
   <joint name="base_to_camera_front" type="fixed">
     <parent link="base_link"/>

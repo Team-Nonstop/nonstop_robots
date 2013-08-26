@@ -9,5 +9,7 @@
   <xacro:include filename="$(find handheld_mapper_description)/urdf/sensors/hokuyo_04lx_laser.urdf.xacro"/>
   <!-- Stack -->
   <xacro:include filename="$(find handheld_mapper_description)/urdf/handheld_mapper.urdf.xacro"/>
-  
+
+ <!-- Bundle Markers -->
+  <xacro:include filename="$(find handheld_mapper_description)/urdf/marker_bundle/marker_bundle.urdf.xacro"/>  
 </robot>

@@ -16,9 +16,9 @@
   <link name="camera_front">
     <visual>
       <geometry>
-        <box size=".01 .01 .02"/>
+        <box size=".01 .09 .02 "/>
       </geometry>
-      <origin rpy="-1.57075 0 3.141592" xyz="0 0 0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="blue">
         <color rgba="0 0 1 1"/>
       </material>
@@ -27,15 +27,15 @@
   <joint name="base_to_camera_front" type="fixed">
     <parent link="base_link"/>
     <child link="camera_front"/>
-    <origin rpy="-1.57075 0 0" xyz="0 .0205 0.53"/>
+    <origin rpy="3.141592 0 0" xyz=".0205 0 0.53"/>
   </joint>
-
+<!--
   <link name="camera_backward">
     <visual>
       <geometry>
-        <box size=".09 .01 .02"/>
+        <box size=".01 .01 .02"/>
       </geometry>
-      <origin rpy="1.57075 0 0" xyz="0 0 0"/>
+      <origin rpy="3.141592 0 0" xyz="0 0 0"/>
       <material name="green">
         <color rgba="0 1 0 1"/>
       </material>
@@ -44,9 +44,9 @@
   <joint name="base_to_camera_backward" type="fixed">
     <parent link="base_link"/>
     <child link="camera_backward"/>
-    <origin rpy="1.57075 0 0" xyz="0 -0.0205 0.53"/>
+    <origin rpy="0 0 0" xyz="0 -0.0205 0.53"/>
   </joint>
-
+-->
 
 
   <link name="x_leg">

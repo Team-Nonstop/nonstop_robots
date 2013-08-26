@@ -3,7 +3,7 @@
 
 services: 
   - 
-     name: "Turtlebot_nonstop"
+     name: "Turtlebot"
      type: _ros-master._tcp 
      domain: local 
      description: "ros master"

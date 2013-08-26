@@ -15,7 +15,7 @@
   <!--<xacro:include filename="$(find turtlebot_nonstop_description)/urdf/sensors/kinect.urdf.xacro"/>
 
   <!-- Bundle Markers -->
-  <xacro:include filename="$(find lemonabot_description)/urdf/marker_bundle/marker_bundle.urdf.xacro"/>
+  <xacro:include filename="$(find sniperbot_description)/urdf/marker_bundle/marker_bundle.urdf.xacro"/>
 
 </robot>
 ~                                                                                                         

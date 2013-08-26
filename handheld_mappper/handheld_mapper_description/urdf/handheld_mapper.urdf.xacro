@@ -7,24 +7,77 @@
   <xacro:include filename="$(find handheld_mapper_description)/urdf/common_properties.urdf.xacro"/>
 
   <xacro:macro name="handheld_mapper">
-<link name="base_footprint"/>
+  <link name="base_footprint"/>
     <joint name="base_joint" type="fixed">
       <origin xyz="0 0 0.0015" rpy="0 0 0" />
       <parent link="base_footprint"/>
       <child link="base_link" />
     </joint>
+  </link>
 
-    <link name="base_link">
-      <visual>
-        <origin xyz="0 0 0" rpy="0 0 0" />
-        <geometry>
-          <box size="0.26 0.18 0.03"/>
-        </geometry>
-        <material name="white"/>
-      </visual>
-    </link>
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <box size=".38 .48 .36"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 .18"/>
+      <material name="red">
+        <color rgba=".8 0 0 1"/>
+      </material>
+    </visual>
+  </link>
+  
+  <link name="bottom_plate_link">
+    <visual>
+      <geometry><link name="base_link">
+    <visual>
+      <geometry>
+        <box size=".38 .48 .002"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.03"/>
+      <material name="blue">
+        <color rgba="0 0 1 1"/>
+      </material>
+    </visual>
+  </link>
 
-    <!-- laser -->
+  <link name="middle_plate_link">
+    <visual>
+      <geometry>
+        <box size=".38 .38 .002"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 .16"/>
+      <material name="green">
+        <color rgba="0 1 0 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <link name="top_plate_link">
+    <visual>
+      <geometry>
+        <box size=".38 .38 .002"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 .245"/>
+      <material name="purple">
+        <color rgba="1 0 1 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <link name="battery_link">
+    <visual>
+      <geometry>
+        <box size=".15 .085 .1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 .295"/>
+      <material name="cobalt">
+        <color rgba="0 0 .5 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <!-- laser -->
     <xacro:hokuyo_04lx_laser name="hokuyo" parent="base">
       <origin xyz="-0.075 0 0.003" rpy="0 0 0" />
     </xacro:hokuyo_04lx_laser>

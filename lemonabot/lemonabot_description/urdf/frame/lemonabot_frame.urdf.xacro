@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<robot name="coldeyes_frame" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:include filename="$(find coldeyes_description)/urdf/common_properties.urdf.xacro"/>
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <box size=".38 .48 .36"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 .18"/>
+      <material name="red">
+        <color rgba=".8 0 0 1"/>
+      </material>
+    </visual>
+  </link>
+  
+  <link name="bottom_plate_link">
+    <visual>
+      <geometry><link name="base_link">
+    <visual>
+      <geometry>
+        <box size=".38 .48 .002"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.03"/>
+      <material name="blue">
+        <color rgba="0 0 1 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <link name="middle_plate_link">
+    <visual>
+      <geometry>
+        <box size=".38 .38 .002"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 .16"/>
+      <material name="green">
+        <color rgba="0 1 0 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <link name="top_plate_link">
+    <visual>
+      <geometry>
+        <box size=".38 .38 .002"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 .245"/>
+      <material name="purple">
+        <color rgba="1 0 1 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <link name="battery_link">
+    <visual>
+      <geometry>
+        <box size=".15 .085 .1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 .295"/>
+      <material name="cobalt">
+        <color rgba="0 0 .5 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <link name="gun_base_link">
+    <visual>
+      <geometry>
+        <box size=".05 .05 .05"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0.13 .325"/>
+      <material name="teal">
+        <color rgba="0 1 1 1"/>
+      </material>
+    </visual>
+  </link>
+</robot>

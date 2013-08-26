@@ -13,9 +13,9 @@ namespace sniperbot
 bool SniperNode::waitForPoses()
 {
   // check whether semantic poses are initialized
-  while (!initialized_table_)
+  while (!initialized_site_)
   {
-    ROS_DEBUG("Table is not initialized yet...");
+    ROS_DEBUG("Site is not initialized yet...");
     ros::Duration(1).sleep();
   }
 }
@@ -192,35 +192,35 @@ bool SniperNode::cleanupAndError()
   return false;
 }
 
-bool SniperNode::gotoTable(int table_id)
+bool SniperNode::gotoSite(int site_id)
 {
-  // find table pose
-  bool table_found = false;
+  // find site pose
+  bool site_found = false;
   float radius;
-  geometry_msgs::PoseStamped table_pose;
-  for (unsigned int i = 0; i < table_poses_.tables.size(); i++)
+  geometry_msgs::PoseStamped site_pose;
+  for (unsigned int i = 0; i < site_poses_.sites.size(); i++)
   {
-    // Look for the requested table's pose (and get rid of the useless covariance)
-    if (table_poses_.tables[i].name.find(tk::nb2str(table_id), strlen("table")) != std::string::npos)
+    // Look for the requested site's pose (and get rid of the useless covariance)
+    if (site_poses_.sites[i].name.find(tk::nb2str(site_id), strlen("site")) != std::string::npos)
     {
-      ROS_DEBUG("Target table %d: rad = %f, pose = %s", table_id, table_poses_.tables[i].radius,
-                tk::pose2str(table_poses_.tables[i].pose_cov_stamped.pose.pose));
-      table_pose.header = table_poses_.tables[i].pose_cov_stamped.header;
-      table_pose.pose = table_poses_.tables[i].pose_cov_stamped.pose.pose;
-      radius = table_poses_.tables[i].radius;
-      table_found = true;
+      ROS_DEBUG("Target site %d: rad = %f, pose = %s", site_id, site_poses_.sites[i].radius,
+                tk::pose2str(site_poses_.sites[i].pose_cov_stamped.pose.pose));
+      site_pose.header = site_poses_.sites[i].pose_cov_stamped.header;
+      site_pose.pose = site_poses_.sites[i].pose_cov_stamped.pose.pose;
+      radius = site_poses_.sites[i].radius;
+      site_found = true;
       break;
     }
   }
 
-  if (table_found == false)
+  if (site_found == false)
   {
-    ROS_WARN("Table %d not found! bloody jihoon...  ignoring order", table_id);
+    ROS_WARN("Site %d not found! ignoring mission", site_id);
     return false;
   }
   else
   {
-    return navigator_.deliverOrder(table_pose, radius);
+    return navigator_.operationMission(site_pose, radius);
   }
 }
 

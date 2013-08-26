@@ -30,17 +30,17 @@ bool SniperNode::init()
   led_1_pub_ = nh_.advertise <kobuki_msgs::Led>     ("/mobile_base/commands/led1", 1);
   led_2_pub_ = nh_.advertise <kobuki_msgs::Led>     ("/mobile_base/commands/led2", 1);
   sound_pub_ = nh_.advertise <kobuki_msgs::Sound>   ("/mobile_base/commands/sound", 1);
-  table_marker_pub_  = nh_.advertise <visualization_msgs::MarkerArray> ("/table_marker", 1, true);
+  site_marker_pub_  = nh_.advertise <visualization_msgs::MarkerArray> ("/site_marker", 1, true);
 
   digital_input_sub_ = nh_.subscribe("digital_input",   5, &SniperNode::digitalInputCB, this);
   core_sensors_sub_  = nh_.subscribe("core_sensors",    5, &SniperNode::coreSensorsCB, this);
-  table_poses_sub_   = nh_.subscribe("table_pose_list", 1, &SniperNode::tablePosesCB, this);
+  site_poses_sub_   = nh_.subscribe("site_pose_list", 1, &SniperNode::sitePosesCB, this);
 
   // is robot localized? 
   initialized_ = false;
 
-  // received table pose?
-  initialized_table_ = false; 
+  // received site pose?
+  initialized_site_ = false; 
 
   // Initialize sub-modules
   if (nav_watchd_.init() == false)

@@ -24,6 +24,11 @@
       </material>
     </visual>
   </link>
+  <joint name="base_to_camera_front" type="fixed">
+    <parent link="base_link"/>
+    <child link="camera_front"/>
+    <origin rpy="-1.57075 0 0" xyz="0 .0205 0.53"/>
+  </joint>
 
   <link name="camera_backward">
     <visual>
@@ -36,13 +41,13 @@
       </material>
     </visual>
   </link>
-
-
-  <joint name="base_to_camera_front" type="fixed">
+  <joint name="base_to_camera_backward" type="fixed">
     <parent link="base_link"/>
-    <child link="camera_front"/>
-    <origin rpy="-1.57075 0 0" xyz="0 .0205 0.53"/>
+    <child link="camera_backward"/>
+    <origin rpy="1.57075 0 0" xyz="0 -0.0205 0.53"/>
   </joint>
+
+
 
   <link name="x_leg">
     <visual>

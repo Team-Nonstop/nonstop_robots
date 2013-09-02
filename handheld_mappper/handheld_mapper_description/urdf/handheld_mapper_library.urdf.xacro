@@ -2,7 +2,7 @@
 <!--
   The complete handheld_mapper library of xacros for easy reference
  -->
-<robot xmlns:xacro="http://ros.org/wiki/xacro">
+<robot name="handheld" xmlns:xacro="http://ros.org/wiki/xacro">
   <!-- General
   <xacro:include filename="$(find handheld_mapper_description)/urdf/common.urdf.xacro"/>-->
   <!-- Laser Sensors -->

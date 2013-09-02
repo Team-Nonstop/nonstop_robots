@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 
 <robot name="lemonabot" xmlns:xacro="http://ros.org/wiki/xacro">
-
   <xacro:include filename="$(find lemonabot_description)/urdf/lemonabot_library.urdf.xacro" />
   
   <lemonabot_frame/>
-
+  <marker_bundle_0 parent="base_link"/>
+  <handheld_mapper parent="base_link" x_loc="0.10" y_loc="0.0" z_loc="0.245" r_deg="0.0" p_deg="0.0" y_deg="0.0"/>
 </robot>

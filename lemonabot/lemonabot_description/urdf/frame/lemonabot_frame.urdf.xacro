@@ -16,7 +16,7 @@
         <box size=".38 .48 .002"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
-      <material name="red">
+      <material name="none">
         <color rgba="0 0 0 0"/>
       </material>
     </visual>
@@ -32,7 +32,6 @@
     <visual>
       <geometry>
         <cylinder length="0.002" radius="0.19"/>
-       <!-- <box size=".38 .48 .002"/>-->
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="white">
@@ -51,7 +50,6 @@
     <visual>
       <geometry>
 	<cylinder length="0.002" radius="0.19"/>
-        <!--<box size=".38 .38 .002"/>-->
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="white">
@@ -70,7 +68,6 @@
     <visual>
       <geometry>
 	<cylinder length="0.002" radius="0.19"/>
-        <!--<box size=".38 .38 .002"/>-->
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="white">
@@ -81,7 +78,7 @@
   
   <!-- wheel -->
   <joint name="left_wheel_joint" type="fixed">
-      <origin xyz="0 0.10 0" rpy="1.57075 1.57075 0" />
+      <origin xyz="-0.04 0.10 0.03" rpy="1.57075 1.57075 0" />
       <parent link="bottom_plate_link"/>
       <child link="left_wheel_link" />
   </joint>
@@ -89,18 +86,17 @@
   <link name="left_wheel_link">
     <visual>
       <geometry>
-        <cylinder length="0.02" radius="0.03"/>
-        <!--<box size=".38 .38 .002"/>-->
+        <cylinder length="0.02" radius="0.06"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
-      <material name="red">
-        <color rgba="1 0 0 1"/>
+      <material name="blood">
+        <color rgba="0.6 0 0 1"/>
       </material>
     </visual>
   </link>
 
   <joint name="right_wheel_joint" type="fixed">
-      <origin xyz="0 -0.10 0" rpy="1.57075 1.57075 0" />
+      <origin xyz="-0.04 -0.10 0.03" rpy="1.57075 1.57075 0" />
       <parent link="bottom_plate_link"/>
       <child link="right_wheel_link" />
   </joint>
@@ -108,15 +104,12 @@
   <link name="right_wheel_link">
     <visual>
       <geometry>
-        <cylinder length="0.02" radius="0.03"/>
-        <!--<box size=".38 .38 .002"/>-->
+        <cylinder length="0.02" radius="0.06"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
-      <material name="red">
-        <color rgba="1 0 0 1"/>
+      <material name="blood">
+        <color rgba="0.6 0 0 1"/>
       </material>
     </visual>
   </link>
-
-
 </robot>

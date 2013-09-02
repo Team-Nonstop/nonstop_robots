@@ -41,7 +41,7 @@
   </xacro:macro>
   
   <xacro:macro name="marker_bundle_0" params="parent">
-    <attached_marker parent="${parent}" marker_num="0" direction="front" x_loc= "0.19" y_loc= "0.19" z_loc="0.21" r_deg="0" p_deg="1.570795" y_deg="0"/>
+    <attached_marker parent="${parent}" marker_num="0" direction="front" x_loc= "0.19" y_loc= "0" z_loc="0.21" r_deg="0" p_deg="1.570795" y_deg="0"/>
     <attached_marker parent="${parent}" marker_num="1" direction="backward" x_loc= "-0.19" y_loc= "0" z_loc="0.21" r_deg="3.14159" p_deg="1.570795" y_deg="0"/>
     <attached_marker parent="${parent}" marker_num="2" direction="left" x_loc="0" y_loc= "-0.19" z_loc="0.21" r_deg="3.14159" p_deg="1.570795" y_deg="1.570795"/>
     <attached_marker parent="${parent}" marker_num="3" direction="right" x_loc= "0" y_loc="0.19" z_loc="0.21" r_deg="0" p_deg="1.570795" y_deg="1.570795"/>

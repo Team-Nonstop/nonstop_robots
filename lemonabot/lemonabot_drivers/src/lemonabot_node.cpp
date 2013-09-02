@@ -164,12 +164,12 @@ void robotDataCallback(std::string * data){
 	odom.pose.pose.position.y = odometry_y_;
 	odom.pose.pose.position.z = 0.0;
 	odom.pose.pose.orientation = odom_quat;
-odom.pose.covariance[0]  = 0.01;
-odom.pose.covariance[7]  = 0.01;
-odom.pose.covariance[14] = 99999;
-odom.pose.covariance[21] = 99999;
-odom.pose.covariance[28] = 99999;
-odom.pose.covariance[35] = 0.01;
+	odom.pose.covariance[0]  = 0.01;
+	odom.pose.covariance[7]  = 0.01;
+	odom.pose.covariance[14] = 99999;
+	odom.pose.covariance[21] = 99999;
+	odom.pose.covariance[28] = 99999;
+	odom.pose.covariance[35] = 0.01;
 	    
 	// Set the velocity
 	odom.child_frame_id = "base_footprint";

@@ -2,6 +2,10 @@
     <arg name="urdf_file" default="$(find xacro)/xacro.py '$(find lemonabot_description)/robots/lemonabot_with_marker_mapper.urdf.xacro'" />
     <param name="robot_description" command="$(arg urdf_file)" />
 
+  <include file="$(find lemonabot_bringup)/launch/minimal.launch">
+  	<arg name="lemonabot_port" value="/dev/ttyACM0"/>
+  </include>
+
   <include file="$(find handheld_mapper_bringup)/launch/minimal.launch">
   	<arg name="laser_port" value="/dev/ttyACM1"/>
   	<arg name="laser_frame_id" value="hokuyo_laser_link"/>

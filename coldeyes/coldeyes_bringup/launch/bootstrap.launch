@@ -5,7 +5,7 @@
   <arg name="cam_image_topic" default="front/image_rect" />
   <arg name="cam_info_topic" default="front/camera_info" />
   <arg name="output_frame" value="camera_front" />
-  <arg name="camera_device" default="/dev/video0" />
+  <arg name="camera_device" default="/dev/video1" />
   <arg name="urdf_file" default="$(find xacro)/xacro.py '$(find coldeyes_description)/robots/coldeyes_marker.urdf.xacro'" />
   <param name="robot_description" command="$(arg urdf_file)" />
 

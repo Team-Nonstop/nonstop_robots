@@ -1,6 +1,6 @@
 <launch>
 	
-  <include file="$(find handheld_mapper_bringup)/launch/minimal.launch"/>
+  <include file="$(find handheld_mapper_bringup)/launch/bootstrap_standalone.launch"/>
 
   <include file="$(find handheld_mapper_bringup)/launch/includes/_hector_mapping.launch"/>
 

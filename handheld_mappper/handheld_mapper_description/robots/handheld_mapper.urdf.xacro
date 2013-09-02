@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<robot name="handheld_mapper" xmlns:xacro="http://ros.org/wiki/xacro">
+<robot name="handheld_mapperbot" xmlns:xacro="http://ros.org/wiki/xacro">
   <xacro:include filename="$(find handheld_mapper_description)/urdf/handheld_mapper_library.urdf.xacro" />
 
     <link name="base_link">

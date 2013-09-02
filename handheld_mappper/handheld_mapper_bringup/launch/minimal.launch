@@ -1,21 +1,18 @@
 <launch>
 
-    <arg name="urdf_file" default="$(find xacro)/xacro.py '$(find handheld_mapper_description)/robots/handheld_mapper.urdf.xacro'" />
-    <param name="robot_description" command="$(arg urdf_file)" />
+    <arg name="laser_port" default="/dev/ttyACM0"/>
+    <arg name="laser_frame_id" default="hokuyo_laser_link"/>
+    <arg name="imu_port" default="/dev/ttyUSB0"/>
 
    <!-- <param name="~tf_prefix" value="mapper" /> -->
 
     <node pkg="hokuyo_node" type="hokuyo_node" name="hokuyo_node" output="screen">
-        <param name="port" value="/dev/ttyACM0" />
-        <param name="frame_id" value="hokuyo_laser_link" />
+        <param name="port" value="$(arg laser_port)" />
+        <param name="frame_id" value="$(arg laser_frame_id)" />
     </node>
 
     <node pkg="handheld_mapper_driver" type="handheld_mapper_node" name="imu_node" output="screen">
-        <param name="port" value="/dev/ttyUSB0" />
-    </node>
-
-    <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
-        <param name="publish_frequency" type="double" value="5.0" />
+        <param name="port" value="$(arg imu_port)" />
     </node>
 
     <node pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf">

@@ -5,5 +5,5 @@
   
   <lemonabot_frame/>
   <marker_bundle_0 parent="base_link"/>
-  <handheld_mapper parent="base_link" x_loc="0.10" y_loc="0.0" z_loc="0.245" r_deg="0.0" p_deg="0.0" y_deg="0.0"/>
+  <handheld_mapper parent="base_link" x_loc="0.10" y_loc="0.0" z_loc="0.247" r_deg="0.0" p_deg="0.0" y_deg="0.0"/>
 </robot>

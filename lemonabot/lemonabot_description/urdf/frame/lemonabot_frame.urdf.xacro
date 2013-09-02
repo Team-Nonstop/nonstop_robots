@@ -31,11 +31,11 @@
   <link name="bottom_plate_link">
     <visual>
       <geometry>
-        <cylinder length="0.002" radius="0.19"/>
+        <cylinder length="0.002" radius="0.22"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
-      <material name="white">
-        <color rgba="0.9 1 1 1"/>
+      <material name="plate_metal">
+        <color rgba="0.5 0.54 0.55 1"/>
       </material>
     </visual>
   </link>
@@ -52,8 +52,8 @@
 	<cylinder length="0.002" radius="0.19"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
-      <material name="white">
-        <color rgba="0.9 1 1 1"/>
+      <material name="plate_white">
+        <color rgba="0.7 0.7 0.65 1"/>
       </material>
     </visual>
   </link>
@@ -70,15 +70,31 @@
 	<cylinder length="0.002" radius="0.19"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
-      <material name="white">
-        <color rgba="0.9 1 1 1"/>
-      </material>
+      <material name="plate_white" />
     </visual>
   </link>
   
   <!-- wheel -->
+  <joint name="left_tire_joint" type="fixed">
+      <origin xyz="-0.06 0.12 0.035" rpy="1.57075 1.57075 0" />
+      <parent link="bottom_plate_link"/>
+      <child link="left_tire_link" />
+  </joint>
+
+  <link name="left_tire_link">
+    <visual>
+      <geometry>
+        <cylinder length="0.025" radius="0.065"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <material name="black">
+        <color rgba="0.2 0.2 0.2 1"/>
+      </material>
+    </visual>
+  </link>
+
   <joint name="left_wheel_joint" type="fixed">
-      <origin xyz="-0.04 0.10 0.03" rpy="1.57075 1.57075 0" />
+      <origin xyz="-0.06 0.12 0.035" rpy="1.57075 1.57075 0" />
       <parent link="bottom_plate_link"/>
       <child link="left_wheel_link" />
   </joint>
@@ -86,17 +102,33 @@
   <link name="left_wheel_link">
     <visual>
       <geometry>
-        <cylinder length="0.02" radius="0.06"/>
+        <cylinder length="0.027" radius="0.05"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
-      <material name="blood">
-        <color rgba="0.6 0 0 1"/>
+      <material name="gray">
+        <color rgba="0.8 0.8 0.8 1"/>
       </material>
     </visual>
   </link>
 
+  <joint name="right_tire_joint" type="fixed">
+      <origin xyz="-0.06 -0.12 0.035" rpy="1.57075 1.57075 0" />
+      <parent link="bottom_plate_link"/>
+      <child link="right_tire_link" />
+  </joint>
+
+  <link name="right_tire_link">
+    <visual>
+      <geometry>
+        <cylinder length="0.025" radius="0.065"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <material name="black" />
+    </visual>
+  </link>
+
   <joint name="right_wheel_joint" type="fixed">
-      <origin xyz="-0.04 -0.10 0.03" rpy="1.57075 1.57075 0" />
+      <origin xyz="-0.06 -0.12 0.035" rpy="1.57075 1.57075 0" />
       <parent link="bottom_plate_link"/>
       <child link="right_wheel_link" />
   </joint>
@@ -104,12 +136,146 @@
   <link name="right_wheel_link">
     <visual>
       <geometry>
-        <cylinder length="0.02" radius="0.06"/>
+        <cylinder length="0.027" radius="0.05"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
-      <material name="blood">
-        <color rgba="0.6 0 0 1"/>
+      <material name="gray" />
+    </visual>
+  </link>
+
+  <!-- pole -->
+
+  <joint name="bottom_pole_1_joint" type="fixed">
+      <origin xyz="0.14 0.11 0.065" rpy="0 0 0" />
+      <parent link="bottom_plate_link"/>
+      <child link="bottom_pole_1_link" />
+  </joint>
+
+  <link name="bottom_pole_1_link">
+    <visual>
+      <geometry>
+        <cylinder length="0.13" radius="0.005"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <material name="gold">
+        <color rgba="0.55 0.5 0 1"/>
       </material>
     </visual>
   </link>
+
+  <joint name="bottom_pole_2_joint" type="fixed">
+      <origin xyz="-0.14 0.11 0.065" rpy="0 0 0" />
+      <parent link="bottom_plate_link"/>
+      <child link="bottom_pole_2_link" />
+  </joint>
+
+  <link name="bottom_pole_2_link">
+    <visual>
+      <geometry>
+        <cylinder length="0.13" radius="0.005"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <material name="gold" />
+    </visual>
+  </link>
+
+  <joint name="bottom_pole_3_joint" type="fixed">
+      <origin xyz="-0.14 -0.11 0.065" rpy="0 0 0" />
+      <parent link="bottom_plate_link"/>
+      <child link="bottom_pole_3_link" />
+  </joint>
+
+  <link name="bottom_pole_3_link">
+    <visual>
+      <geometry>
+        <cylinder length="0.13" radius="0.005"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <material name="gold"/>
+    </visual>
+  </link>
+
+  <joint name="bottom_pole_4_joint" type="fixed">
+      <origin xyz="0.14 -0.11 0.065" rpy="0 0 0" />
+      <parent link="bottom_plate_link"/>
+      <child link="bottom_pole_4_link" />
+  </joint>
+
+  <link name="bottom_pole_4_link">
+    <visual>
+      <geometry>
+        <cylinder length="0.13" radius="0.005"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <material name="gold"/>
+    </visual>
+  </link>
+
+  <joint name="middle_pole_1_joint" type="fixed">
+      <origin xyz="0.12 0.12 0.043" rpy="0 0 0" />
+      <parent link="middle_plate_link"/>
+      <child link="middle_pole_1_link" />
+  </joint>
+
+  <link name="middle_pole_1_link">
+    <visual>
+      <geometry>
+        <cylinder length="0.085" radius="0.005"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <material name="gold"/>
+    </visual>
+  </link>
+
+  <joint name="middle_pole_2_joint" type="fixed">
+      <origin xyz="-0.12 0.12 0.043" rpy="0 0 0" />
+      <parent link="middle_plate_link"/>
+      <child link="middle_pole_2_link" />
+  </joint>
+
+  <link name="middle_pole_2_link">
+    <visual>
+      <geometry>
+        <cylinder length="0.085" radius="0.005"/>
+      </geometry>
+  <material name="black">
+        <color rgba="0.2 0.2 0.2 1"/>
+      </material>    <origin rpy="0 0 0" xyz="0 0 0"/>
+      <material name="gold"/>
+    </visual>
+  </link>
+
+  <joint name="middle_pole_3_joint" type="fixed">
+      <origin xyz="-0.12 -0.12 0.043" rpy="0 0 0" />
+      <parent link="middle_plate_link"/>
+      <child link="middle_pole_3_link" />
+  </joint>
+
+  <link name="middle_pole_3_link">
+    <visual>
+      <geometry>
+        <cylinder length="0.085" radius="0.005"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <material name="gold"/>
+    </visual>
+  </link>
+  <joint name="middle_pole_4_joint" type="fixed">
+      <origin xyz="0.12 -0.12 0.043" rpy="0 0 0" />
+      <parent link="middle_plate_link"/>
+      <child link="middle_pole_4_link" />
+  </joint>
+
+  <link name="middle_pole_4_link">
+    <visual>
+      <geometry>
+        <cylinder length="0.085" radius="0.005"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <material name="gold"/>
+    </visual>
+  </link>
+
+  
+
 </robot>

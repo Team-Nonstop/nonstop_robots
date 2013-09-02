@@ -12,9 +12,6 @@
 
   <link name="base_link">
     <visual>
-      <geometry>
-        <box size=".38 .48 .36"/>
-      </geometry>
       <origin rpy="0 0 0" xyz="0 0 .18"/>
       <material name="red">
         <color rgba="0.1 0 0 1"/>

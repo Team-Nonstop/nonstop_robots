@@ -1,7 +1,7 @@
 <launch>
 	<arg name="lemonabot_port" default="/dev/ttyACM0"/>
 
-  <arg name="urdf_file" default="$(find xacro)/xacro.py '$(find lemonabot_description)/robots/lemonabot_model.urdf.xacro'" />
+  <arg name="urdf_file" default="$(find xacro)/xacro.py '$(find lemonabot_description)/robots/lemonabot.urdf.xacro'" />
 
   <param name="robot_description" command="$(arg urdf_file)" />
 

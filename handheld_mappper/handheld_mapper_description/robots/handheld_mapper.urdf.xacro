@@ -2,17 +2,25 @@
 <robot name="handheld_mapperbot" xmlns:xacro="http://ros.org/wiki/xacro">
   <xacro:include filename="$(find handheld_mapper_description)/urdf/handheld_mapper_library.urdf.xacro" />
 
-    <link name="base_link">
+  <link name="base_footprint"/>
+
+  <joint name="base_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <parent link="base_footprint"/>
+      <child link="base_link" />
+  </joint>
+
+  <link name="base_link">
     <visual>
       <geometry>
-        <box size=".38 .48 .36"/>
+        <box size=".38 .48 .002"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 .18"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="red">
-        <color rgba=".8 0 0 1"/>
+        <color rgba="0 0 0 0"/>
       </material>
     </visual>
   </link>
-  
+
   <handheld_mapper parent="base_link" x_loc="0.10" y_loc="0.0" z_loc="0.245" r_deg="0.0" p_deg="0.0" y_deg="0.0"/>
 </robot>

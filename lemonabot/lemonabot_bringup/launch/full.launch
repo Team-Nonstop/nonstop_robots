@@ -1,0 +1,13 @@
+<launch>
+	<arg name="lemonabot_port" default="/dev/ttyACM0"/>
+
+  <arg name="urdf_file" default="$(find xacro)/xacro.py '$(find lemonabot_description)/robots/lemonabot.urdf.xacro'" />
+
+  <param name="robot_description" command="$(arg urdf_file)" />
+
+  <node pkg="lemonabot_drivers" type="lemonabot_node" name="lemonabot_node" output="screen" args="$(arg lemonabot_port)"/>
+
+    <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
+        <param name="publish_frequency" type="double" value="5.0" />
+    </node>
+</launch>

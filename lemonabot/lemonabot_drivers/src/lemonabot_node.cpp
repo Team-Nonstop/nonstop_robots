@@ -255,7 +255,7 @@ int main(int argc, char** argv){ //typical usage: "./Lemonabot_node /dev/ttyACMx
 		
 	// Ask Robot ID from the Arduino board (stored in the EEPROM)
 	ROS_INFO("Starting Lemonabot...");
-	serial_port.write("@21e");
+	//serial_port.write("@21e");
 
 	serial_port.write("@5e");
 	std::string reply;

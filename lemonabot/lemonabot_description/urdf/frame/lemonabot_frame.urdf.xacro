@@ -1,6 +1,15 @@
 <?xml version="1.0"?>
 <robot name="lemonabot_frame" xmlns:xacro="http://ros.org/wiki/xacro">
   <xacro:include filename="$(find lemonabot_description)/urdf/common_properties.urdf.xacro"/>
+ 
+  <link name="base_footprint"/>
+
+  <joint name="base_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <parent link="base_footprint"/>
+      <child link="base_link" />
+  </joint>
+
   <link name="base_link">
     <visual>
       <geometry>
@@ -12,37 +21,55 @@
       </material>
     </visual>
   </link>
+
+  <joint name="bottom_plate_joint" type="fixed">
+      <origin xyz="0 0 0.03" rpy="0 0 0" />
+      <parent link="base_link"/>
+      <child link="bottom_plate_link" />
+  </joint>
   
   <link name="bottom_plate_link">
     <visual>
       <geometry>
         <box size=".38 .48 .002"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0.03"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="blue">
         <color rgba="0 0 1 1"/>
       </material>
     </visual>
   </link>
 
+  <joint name="middle_plate_joint" type="fixed">
+      <origin xyz="0 0 0.16" rpy="0 0 0" />
+      <parent link="base_link"/>
+      <child link="middle_plate_link" />
+  </joint>
+
   <link name="middle_plate_link">
     <visual>
       <geometry>
         <box size=".38 .38 .002"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 .16"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="green">
         <color rgba="0 1 0 1"/>
       </material>
     </visual>
   </link>
 
+  <joint name="top_plate_joint" type="fixed">
+      <origin xyz="0 0 0.245" rpy="0 0 0" />
+      <parent link="base_link"/>
+      <child link="top_plate_link" />
+  </joint>
+
   <link name="top_plate_link">
     <visual>
       <geometry>
         <box size=".38 .38 .002"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 .245"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="purple">
         <color rgba="1 0 1 1"/>
       </material>

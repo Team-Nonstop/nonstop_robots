@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+
+<robot name="lemonabot" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find lemonabot_description)/urdf/lemonabot_library.urdf.xacro" />
+  
+  <lemonabot_frame/>
+  <marker_bundle parent="base_link"/>
+
+
+</robot>

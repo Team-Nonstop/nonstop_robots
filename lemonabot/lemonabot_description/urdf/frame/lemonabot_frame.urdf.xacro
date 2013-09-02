@@ -15,8 +15,6 @@
   
   <link name="bottom_plate_link">
     <visual>
-      <geometry><link name="base_link">
-    <visual>
       <geometry>
         <box size=".38 .48 .002"/>
       </geometry>

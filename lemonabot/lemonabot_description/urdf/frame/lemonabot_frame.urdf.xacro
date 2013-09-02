@@ -50,17 +50,4 @@
       </material>
     </visual>
   </link>
-
-  <link name="hokuyo_link">
-    <visual>
-      <geometry>
-        <box size=".05 .05 .08"/>
-      </geometry>
-      <origin rpy="0 0 0" xyz="0.1 0 .29"/>
-      <material name="yellow">
-        <color rgba="1 1 1 0"/>
-      </material>
-    </visual>
-  </link>
-
 </robot>

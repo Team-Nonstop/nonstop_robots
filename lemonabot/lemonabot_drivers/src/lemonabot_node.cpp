@@ -143,7 +143,7 @@ void robotDataCallback(std::string * data){
 	geometry_msgs::TransformStamped odom_trans;
 	odom_trans.header.stamp = current_time;
 	odom_trans.header.frame_id = "odom";
-	odom_trans.child_frame_id = "base_link";
+	odom_trans.child_frame_id = "base_footprint";
 	    
 	odom_trans.transform.translation.x = odometry_x_;
 	odom_trans.transform.translation.y = odometry_y_;
@@ -151,7 +151,7 @@ void robotDataCallback(std::string * data){
 	odom_trans.transform.rotation = odom_quat;
 	    
 	// Send the transform
-	odom_broadcaster_ptr->sendTransform(odom_trans); 		// odom->base_link transform
+	odom_broadcaster_ptr->sendTransform(odom_trans); 		// odom->base_footprint transform
 		
 	    
 	// Next, we'll publish the odometry message over ROS
@@ -172,7 +172,7 @@ odom.pose.covariance[28] = 99999;
 odom.pose.covariance[35] = 0.01;
 	    
 	// Set the velocity
-	odom.child_frame_id = "base_link";
+	odom.child_frame_id = "base_footprint";
 	odom.twist.twist.linear.x = vel_x;
 	odom.twist.twist.linear.y = vel_y;
 	odom.twist.twist.angular.z = vel_yaw;

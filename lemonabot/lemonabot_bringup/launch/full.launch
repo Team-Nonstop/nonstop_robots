@@ -6,7 +6,7 @@
   <param name="robot_description" command="$(arg urdf_file)" />
 
   <node pkg="lemonabot_drivers" type="lemonabot_node" name="lemonabot_node" output="screen" args="$(arg lemonabot_port)"/>
-    <node pkg="tf" type="static_transform_publisher" name="odom_to_base_footprint" args="0 0 0 0 0 0 /odom base_footprint 10" />
+  
     <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
         <param name="publish_frequency" type="double" value="5.0" />
     </node>

@@ -1,40 +1,33 @@
 <?xml version="1.0"?>
 
-<root xmlns:xacro="http://ros.org/wiki/xacro">
-
+<robot name="handheld_mapper" xmlns:xacro="http://ros.org/wiki/xacro">
   <!-- Included URDF Files -->
-  <xacro:include filename="$(find handheld_mapper_description)/urdf/common_properties.urdf.xacro"/>
-
-  <xacro:macro name="handheld_mapper">
-    
-  <link name="base_footprint">
-    <joint name="base_joint" type="fixed">
-      <origin xyz="0 0 0.0015" rpy="0 0 0" />
-      <parent link="base_footprint"/>
-      <child link="base_link" />
-    </joint>
-  </link>
-
-  <link name="base_link">
+  
+  <xacro:macro name="handheld_mapper" params="parent x_loc y_loc z_loc r_deg p_deg y_deg">
+  <joint name="handheld_mapper_joint" type="fixed">
+      <origin xyz="${x_loc} ${y_loc} ${z_loc}" rpy="${r_deg} ${p_deg} ${y_deg}"/>
+      <parent link="${parent}"/>
+      <child link="laser_base_link"/>
+  </joint>
+  
+  <link name="laser_base_link">
     <visual>
       <geometry>
         <box size=".38 .48 .36"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 .18"/>
-      <material name="red">
-        <color rgba=".8 0 0 1"/>
-      </material>
+
     </visual>
   </link>
   
   <!-- laser -->
-    <xacro:hokuyo_04lx_laser name="hokuyo" parent="base">
+    <xacro:hokuyo_04lx_laser name="hokuyo" parent="laser_base">
       <origin xyz="-0.075 0 0.003" rpy="0 0 0" />
     </xacro:hokuyo_04lx_laser>
 
     <!-- imu -->
     <joint name="base_to_imu" type="fixed">
-      <parent link="base_link"/>
+      <parent link="laser_base_link"/>
       <child link="imu"/>
       <origin xyz="0.075 0.01 0.04"/>
     </joint>
@@ -45,8 +38,8 @@
           <box size=".013 .024 .002"/>
         </geometry>
         <origin rpy="0 0 0" xyz="0 0 0"/>
-        <material name="white"/>
+
       </visual>
     </link>
   </xacro:macro>
-</root>
+</robot>

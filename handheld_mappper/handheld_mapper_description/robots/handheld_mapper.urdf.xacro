@@ -1,5 +1,18 @@
 <?xml version="1.0"?>
-<robot name="handheld_mapper" xmlns:xacro="http://ros.org/wiki/xacro">
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
   <xacro:include filename="$(find handheld_mapper_description)/urdf/handheld_mapper_library.urdf.xacro" />
-  <handheld_mapper/>
+
+    <link name="base_link">
+    <visual>
+      <geometry>
+        <box size=".38 .48 .36"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 .18"/>
+      <material name="red">
+        <color rgba=".8 0 0 1"/>
+      </material>
+    </visual>
+  </link>
+  
+  <handheld_mapper parent="base_link" x_loc="0.10" y_loc="0.0" z_loc="0.245" r_deg="0.0" p_deg="0.0" y_deg="0.0"/>
 </robot>

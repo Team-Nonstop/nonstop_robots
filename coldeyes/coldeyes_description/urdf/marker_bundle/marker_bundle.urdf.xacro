@@ -15,7 +15,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <box size="0.04 0.04 0.001"/>
+          <box size="0.09 0.09 0.001"/>
         </geometry> 
         <material name="am_${marker_num}">
               <texture filename="package://coldeyes_description/meshes/markers/images/MarkerTexture_${marker_num}.png" />

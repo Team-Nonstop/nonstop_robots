@@ -4,9 +4,9 @@
     <param name="robot_description" command="$(arg urdf_file)" />
 
     <!--<param name="~tf_prefix" value="mapper" /> -->
-
+<!--
     <node pkg="tf" type="static_transform_publisher" name="map_to_odom_link" args="0 0 0 0 0 0 /map odom 10" />
-
+-->
     <node pkg="hokuyo_node" type="hokuyo_node" name="hokuyo_node" output="screen">
         <param name="port" value="/dev/ttyACM1" />
         <param name="frame_id" value="hokuyo_laser_link" />

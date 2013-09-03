@@ -1,4 +1,5 @@
 <launch>
 	<arg name="lemonabot_port" default="/dev/ttyACM0"/>
-  <node pkg="lemonabot_drivers" type="lemonabot_node" name="lemonabot_node" output="screen" args="$(arg lemonabot_port)"/>
+  <node pkg="lemonabot_drivers" type="lemonabot_node" name="lemonabot_node" output="screen" args="$(arg lemonabot_port)">
+  </node>
 </launch>

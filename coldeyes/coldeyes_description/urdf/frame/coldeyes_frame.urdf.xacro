@@ -16,7 +16,7 @@
   <link name="camera_front">
     <visual>
       <geometry>
-        <box size=".01 .09 .02 "/>
+        <box size=".09 .02 .01 "/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="blue">

@@ -14,6 +14,8 @@
         <param name="frame_id" value="$(arg laser_frame_id)" />
     </node>
 
+    <node pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 0 /odom /base_link" />
+
   <arg name="output_frame" value="camera_front" />
   <arg name="camera_device" default="/dev/video0" />
 

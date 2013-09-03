@@ -3,7 +3,7 @@
   <master auto="start"/>
 
   <!-- Run the map server -->
-  <node name="map_server" pkg="map_server" type="map_server" args="$(find nonstop_maps)/maps/A304.pgm 0.01" respawn="false"/>
+  <node name="map_server" pkg="map_server" type="map_server" args="$(find nonstop_maps)/maps/A304.yaml" respawn="false"/>
 
   <!--- Run AMCL -->
   <include file="$(find lemonabot_2dnav)/amcl/amcl_lemonabot_2dnav.launch" />

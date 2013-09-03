@@ -20,4 +20,3 @@
 
   <node name="rviz" pkg="rviz" type="rviz" args="-d $(find turtlebot_nonstop_softapps)/rviz/nav.rviz"/>
 </launch>
-

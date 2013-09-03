@@ -20,7 +20,7 @@
 #include <move_base_msgs/MoveBaseAction.h>
 #include <kobuki_msgs/AutoDockingAction.h>
 
-#include <semantic_region_handler/TablePose.h>
+#include <semantic_region_handler_nonstop/SitePose.h>
 
 
 namespace sniperbot
@@ -70,8 +70,8 @@ public:
 
   bool dockInBase();
   bool dockInBase(const geometry_msgs::PoseStamped& base_marker_pose);
-  bool pickUpOrder(const geometry_msgs::PoseStamped& pick_up_pose);
-  bool deliverOrder(const geometry_msgs::PoseStamped& table_pose, double table_radius);
+  bool pickUpMission(const geometry_msgs::PoseStamped& pick_up_pose);
+  bool operationMission(const geometry_msgs::PoseStamped& site_pose, double site_radius);
 
   void odometryCB(const nav_msgs::Odometry::ConstPtr& msg);
   void baseSpottedMsgCB(const geometry_msgs::PoseStamped::ConstPtr& msg, uint32_t id);
@@ -208,8 +208,8 @@ private:
   double relay_on_beacon_distance_;    /**< At which distance from the base we start relaying on ir beacons */
   double relay_on_marker_distance_;    /**< At which distance from the base we start relaying on ar markers */
   double close_to_pickup_distance_;    /**< At which distance from pickup point switch off recovery behavior */
-  double close_to_delivery_distance_;  /**< At which distance from delivery point switch off recovery behavior */
-  double tables_serving_distance_;     /**< At which distance from the table we try to serve our orders */
+  double close_to_operation_distance_;  /**< At which distance from operation point switch off recovery behavior */
+  double sites_serving_distance_;     /**< At which distance from the site we try to serve our orders */
   double default_planner_frequency_;   /**< Global planner default rate; restored after try-error navigation */
   double go_to_pose_timeout_;
   double auto_docking_timeout_;
@@ -233,9 +233,9 @@ private:
   ros::Publisher  safety_off_pub_;
 
   // Inaccessible constructors and assignment operator
-//  Navigator();
-//  Navigator(Navigator const&);
-//  void operator = (Navigator const&);
+  //Navigator();
+  //Navigator(Navigator const&);
+  //void operator = (Navigator const&);
 
   /**
    * Private version of dockInBase that already receives a move_base goal in front (hopefully) of the

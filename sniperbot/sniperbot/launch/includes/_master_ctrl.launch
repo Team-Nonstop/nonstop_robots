@@ -30,7 +30,7 @@
     <param name="play_sounds" value="true"/>
     <param name="debug_mode" value="$(arg debug_mode)"/>
     
-    <rosparam file="$(find sniperbot_node)/param/ar_markers.yaml" command="load"/>
+    <rosparam file="$(find sniperbot)/param/ar_markers.yaml" command="load"/>
 
     <!-- Incoming remaps -->
     <remap from="new_goal"      to="move_base_simple/goal"/>

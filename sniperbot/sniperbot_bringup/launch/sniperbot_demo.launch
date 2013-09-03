@@ -22,7 +22,6 @@
     <arg name="depth_processing" value="false"/>
   </include>
 
-
   <!-- Reconfigure command velocity multiplexer to fit sniperbot needs. Just set the parameter doesn't work
        if we start the sniperbot rapp with app manager; we must explicitly call the reconfigure service -->
   <node pkg="rosservice" type="rosservice" name="reconfig_vel_mux" args="call --wait /cmd_vel_mux/set_parameters
@@ -32,11 +31,9 @@
   <include file="$(find sniperbot)/launch/includes/_autodock.launch"/>
 
   <!--  ********** Alvar AR markers tracker ***********  -->
-
   <include file="$(find sniperbot)/launch/includes/_ar_tracker.launch">
     <arg name="max_frequency" value="4.0"/>  <!-- This is a CPU-hungry bastard; reduce its rate --> 
   </include>
-
 
   <!--  ************* Navigation manager **************  -->
   <include file="$(find sniperbot)/launch/includes/_master_ctrl.launch">

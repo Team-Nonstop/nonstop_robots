@@ -73,8 +73,18 @@ include_directories(include ${catkin_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS})
 
 
 
+###################FOGI##############################33
 
-#add_executable(sniper_node src/sniper_node.cpp src/sniper_callbacks.cpp src/ar_markers.cpp src/nav_watchdog.cpp src/navigator.cpp src/common.cpp)
+##
+#
+
+#add_executable(sniperbot_node src/sniper_node.cpp src/sniper_callbacks.cpp src/ar_markers.cpp src/nav_watchdog.cpp src/navigator.cpp src/common.cpp)
+##
+#
+
+##
+#
+######################################################3
 #src/sniper_tasks.cpp src/sniper_shot_handles.cpp
 
 

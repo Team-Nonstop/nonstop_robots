@@ -23,8 +23,8 @@ bool SniperNode::init()
   pnh.param("global_frame", global_frame_, std::string("map"));
 
   // register the goal and preempt callbacks
-  as_.registerGoalCallback(boost::bind(&SniperNode::deliverOrderCB, this));
-  as_.registerPreemptCallback(boost::bind(&SniperNode::preemptOrderCB, this));
+  as_.registerGoalCallback(boost::bind(&SniperNode::operationalMissionCB, this));
+  as_.registerPreemptCallback(boost::bind(&SniperNode::preemptMissionCB, this));
   as_.start();
 
   led_1_pub_ = nh_.advertise <kobuki_msgs::Led>     ("/mobile_base/commands/led1", 1);
@@ -93,14 +93,14 @@ void SniperNode::spin()
       last_blink_time = now;
       last_blink_led = (last_blink_led % 2) + 1;
 
-      switch (order_.status)
+      switch (mission_.status)
       {
-        case cafe_msgs::Status::ERROR:
+        case nonstop_msgs::Status::ERROR:
           led_1_pub_.publish(last_blink_led == 1 ?   off_led_msg :   red_led_msg);
           led_2_pub_.publish(last_blink_led == 1 ?   red_led_msg :   off_led_msg);
           break;
-        case cafe_msgs::Status::WAITING_FOR_KITCHEN:
-        case cafe_msgs::Status::WAITING_FOR_USER_CONFIRMATION:
+        case nonstop_msgs::Status::WAITING_FOR_BASE_CAMP:
+        case nonstop_msgs::Status::WAITING_FOR_COMMANDER_CONFIRMATION:
           led_1_pub_.publish(last_blink_led == 1 ?   off_led_msg : green_led_msg);
           led_2_pub_.publish(last_blink_led == 1 ? green_led_msg :   off_led_msg);
           break;

@@ -1,0 +1,5 @@
+<launch>
+	<node pkg="nonstop_drone_marker_tracking" type="marker_tracking" name="tracking_marker">
+		<param name="tracking_config_file" value="$(find nonstop_drone_marker_tracking)/param/marker_config.yaml"/>
+	</node>
+</launch>

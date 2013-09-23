@@ -4,9 +4,9 @@
   <link name="base_link">
     <visual>
       <geometry>
-        <box size=".03 .03 .54"/>
+        <box size=".03 .03 .25"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 .280"/>
+      <origin rpy="0 0 0" xyz="0 0 .140"/>
       <material name="red">
         <color rgba=".8 0 0 1"/>
       </material>
@@ -27,7 +27,7 @@
   <joint name="base_to_camera_front" type="fixed">
     <parent link="base_link"/>
     <child link="camera_front"/>
-    <origin rpy="-1.57075 0 -1.57075" xyz=".0205 0 0.53"/>
+    <origin rpy="-1.57075 0 -1.57075" xyz=".0205 0 0.26"/>
   </joint>
 <!--
   <link name="camera_backward">

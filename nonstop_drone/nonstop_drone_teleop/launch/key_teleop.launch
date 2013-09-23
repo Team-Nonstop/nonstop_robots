@@ -1,0 +1,7 @@
+<launch>
+
+  <node pkg="nonstop_drone_teleop" type="keyboard_teleop.py" name="nonstop_drone_teleop_key" output="screen">
+    <remap from="cmd_vel" to="cmd_vel_mux/input/teleop" />
+  </node>
+
+</launch>

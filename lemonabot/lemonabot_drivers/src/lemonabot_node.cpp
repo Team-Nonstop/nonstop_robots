@@ -45,7 +45,7 @@ int left_encoder_prev = 0;
 void robotDataCallback(std::string * data){ 
    
 	//ROS_INFO("x = %f , y = %f , yaw = %f",odometry_x_,odometry_y_,odometry_yaw_);
-	ROS_INFO("Received: \"%s\"", data->c_str());
+	//ROS_INFO("Received: \"%s\"", data->c_str());
     if (confirm_communication){
       //ROS_INFO("Robot -- Communication OK! Received: \"%s\"", data->c_str());
       ROS_INFO("Lemonabot is Streaming Data.");

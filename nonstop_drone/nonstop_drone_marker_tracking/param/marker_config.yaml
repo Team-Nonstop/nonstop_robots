@@ -1,0 +1,8 @@
+mark_data:
+  - marker_id: 0
+drone_frameid: "/nonstop_drone/ardrone_base_link"
+camera_frame_id: "/nonstop_drone/ardrone_base_bottomcam"
+marker_frame_id: "/nonstop_drone/ar_marker_"
+tracking_height: 1
+tracking_sensivity: 0.8
+

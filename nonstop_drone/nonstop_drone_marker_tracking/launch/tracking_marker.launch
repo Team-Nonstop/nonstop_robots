@@ -1,0 +1,6 @@
+<launch>
+  <node pkg="nonstop_drone_marker_tracking" type="marker_tracking" name="tracking_marker">
+    <param name="tracking_config_file" value="$(find nonstop_drone_marker_tracking)/param/marker_config.yaml"/>
+    <remap from="cmd_vel" to="cmd_vel_mux/input/marker_track" />
+  </node>
+</launch>

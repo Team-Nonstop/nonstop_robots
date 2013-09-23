@@ -49,7 +49,7 @@ bool Navigator::init()
 
   pnh.param("relay_on_beacon_distance", relay_on_beacon_distance_, 0.4);
   pnh.param("relay_on_marker_distance", relay_on_marker_distance_, 1.0);
-  pnh.param("tables_serving_distance",  tables_serving_distance_,  0.4);
+  pnh.param("sites_serving_distance",  sites_serving_distance_,  0.4);
   pnh.param("go_to_pose_timeout",       go_to_pose_timeout_,     300.0);
   pnh.param("auto_docking_timeout",     auto_docking_timeout_,    90.0);
   pnh.param("wait_for_pickup_point",    wait_for_pickup_point_,    8.8);
@@ -62,7 +62,7 @@ bool Navigator::init()
 
   // We must disable recovery behavior well before entering the local costmap
   close_to_pickup_distance_ = close_to_pickup_distance_/2.0 + 0.8;
-  close_to_delivery_distance_ = close_to_pickup_distance_;
+  operation = close_to_pickup_distance_;
 
   odometry_sub_    = nh.subscribe("odometry", 5, &Navigator::odometryCB, this);
 
@@ -363,7 +363,7 @@ bool Navigator::dockInBase_(const move_base_msgs::MoveBaseGoal& mb_goal)
   }
 }
 
-bool Navigator::pickUpOrder(const geometry_msgs::PoseStamped& pickup_pose)
+bool Navigator::pickUpMission(const geometry_msgs::PoseStamped& pickup_pose)
 {
   // Enable safety controller on normal navigation
  // enableSafety();
@@ -510,19 +510,19 @@ bool Navigator::pickUpOrder(const geometry_msgs::PoseStamped& pickup_pose)
   } while (true);
 }
 
-bool Navigator::deliverOrder(const geometry_msgs::PoseStamped& table_pose, double table_radius)
+bool Navigator::operationMission(const geometry_msgs::PoseStamped& site_pose, double site_radius)
 {
   // Enable safety controller on normal navigation
  // enableSafety();
 
-  if (table_pose.header.frame_id != global_frame_)
+  if (site_pose.header.frame_id != global_frame_)
   {
-    ROS_ERROR("Table pose not in global frame (%s != %s)",
-              table_pose.header.frame_id.c_str(), global_frame_.c_str());
+    ROS_ERROR("Site pose not in global frame (%s != %s)",
+              site_pose.header.frame_id.c_str(), global_frame_.c_str());
     return cleanupAndError();
   }
 
-  ROS_INFO("Global navigation to table...");
+  ROS_INFO("Global navigation to site...");
 
   // Wait for move base action servers to come up; at this point the should be up already
   if (waitForServer(move_base_ac_, 2.0) == false)
@@ -534,27 +534,27 @@ bool Navigator::deliverOrder(const geometry_msgs::PoseStamped& table_pose, doubl
   int attempts = 0;
   double min_tried_heading = std::numeric_limits<double>::max();
   double max_tried_heading = std::numeric_limits<double>::min();
-  double heading_increment = std::atan2(2.0*robot_radius_, table_radius + tables_serving_distance_);
+  double heading_increment = std::atan2(2.0*robot_radius_, site_radius + sites_serving_distance_);
 
-  tf::StampedTransform table_gb;
-  tk::pose2tf(table_pose, table_gb);
+  tf::StampedTransform site_gb;
+  tk::pose2tf(site_pose, site_gb);
 
   do
   {
-    // Get latest robot global pose to calculate heading and distance from robot to table
+    // Get latest robot global pose to calculate heading and distance from robot to site
     tf::StampedTransform robot_gb = getRobotTf();
 
-    double distance_to_table, last_plan_distance_to_table;
-    double heading_to_table,  last_plan_heading_to_table;
-    distance_to_table = last_plan_distance_to_table = tk::distance2D(robot_gb, table_gb);
-    heading_to_table  = last_plan_heading_to_table  = tk::heading(robot_gb, table_gb);
+    double distance_to_site, last_plan_distance_to_site;
+    double heading_to_site,  last_plan_heading_to_site;
+    distance_to_site = last_plan_distance_to_site = tk::distance2D(robot_gb, site_gb);
+    heading_to_site  = last_plan_heading_to_site  = tk::heading(robot_gb, site_gb);
 
-    // Heading to goal is the same that to table for the first try, but it drifts when we fail to reach a goal
-    double heading_to_goal = heading_to_table;
+    // Heading to goal is the same that to site for the first try, but it drifts when we fail to reach a goal
+    double heading_to_goal = heading_to_site;
 
-    if ((heading_to_table >= min_tried_heading) && (heading_to_table <= max_tried_heading))
+    if ((heading_to_site >= min_tried_heading) && (heading_to_site <= max_tried_heading))
     {
-      if (std::abs(heading_to_table - min_tried_heading) < std::abs(heading_to_table - max_tried_heading))
+      if (std::abs(heading_to_site - min_tried_heading) < std::abs(heading_to_site - max_tried_heading))
       {
         heading_to_goal = min_tried_heading - heading_increment;
       }
@@ -564,18 +564,18 @@ bool Navigator::deliverOrder(const geometry_msgs::PoseStamped& table_pose, doubl
       }
     }
 
-    // Table tf in global reference system; we set robot-to-table heading as orientation...
-    table_gb.setRotation(tf::createQuaternionFromYaw(tk::wrapAngle(heading_to_goal)));
+    // Site tf in global reference system; we set robot-to-site heading as orientation...
+    site_gb.setRotation(tf::createQuaternionFromYaw(tk::wrapAngle(heading_to_goal)));
 
-    // ...and displace table radius + robot radius + safety margin in that direction
+    // ...and displace site radius + robot radius + safety margin in that direction
     tf::Transform towards_robot(tf::Quaternion::getIdentity(),
-                                tf::Vector3(- table_radius - tables_serving_distance_, 0.0, 0.0));
-    tf::StampedTransform goal_gb(table_gb*towards_robot, ros::Time::now(), global_frame_, "DELIVERY_POINT");
+                                tf::Vector3(- site_radius - sites_serving_distance_, 0.0, 0.0));
+    tf::StampedTransform goal_gb(site_gb*towards_robot, ros::Time::now(), global_frame_, "DELIVERY_POINT");
     double distance_to_goal = tk::distance2D(robot_gb, goal_gb);
 
     //< DEBUG
-    tf::StampedTransform table(table_gb, ros::Time::now(),  global_frame_, "TABLE");
-    tf_brcaster_.sendTransform(table);
+    tf::StampedTransform site(site_gb, ros::Time::now(),  global_frame_, "TABLE");
+    tf_brcaster_.sendTransform(site);
     tf_brcaster_.sendTransform(goal_gb);
     //>
 
@@ -591,7 +591,7 @@ bool Navigator::deliverOrder(const geometry_msgs::PoseStamped& table_pose, doubl
 
     ros::Time t0 = ros::Time::now();
 
-    // Going to delivery point
+    // Going to operation point
     while (move_base_ac_.waitForResult(ros::Duration(0.5)) == false)
     {
       if ((ros::Time::now() - t0).toSec() < go_to_pose_timeout_)
@@ -599,50 +599,50 @@ bool Navigator::deliverOrder(const geometry_msgs::PoseStamped& table_pose, doubl
         ROS_DEBUG_THROTTLE(5.0, "Move base action state: %s (%.2f seconds elapsed)", move_base_ac_.getState().toString().c_str(),
                            (ros::Time::now() - t0).toSec());
 
-        // Get latest robot global pose to calculate heading and distance from robot to table and goal (delivery point)
+        // Get latest robot global pose to calculate heading and distance from robot to site and goal (operation point)
         robot_gb = getRobotTf();
-        distance_to_table = tk::distance2D(robot_gb, table_gb);
-        heading_to_table  = tk::heading(robot_gb, table_gb);
+        distance_to_site = tk::distance2D(robot_gb, site_gb);
+        heading_to_site  = tk::heading(robot_gb, site_gb);
 
         distance_to_goal  = tk::distance2D(robot_gb, goal_gb);
 
-        if (distance_to_table < (table_radius + tables_serving_distance_ + 0.1))
+        if (distance_to_site < (site_radius + sites_serving_distance_ + 0.1))
         {
-          // Somehow we manage to approach the table, so... why to bother more? Just cancel goal and head to the table center
+          // Somehow we manage to approach the site, so... why to bother more? Just cancel goal and head to the site center
           if (cancelAllGoals(move_base_ac_) == false)
             ROS_WARN("Aish... we should not be here; nothing good is gonna happen...");
 
-          double to_turn = tk::wrapAngle(heading_to_table - tf::getYaw(robot_gb.getRotation()));
-          ROS_DEBUG("Already close to the table while going to next goal (%.2f m); just turn %.2f rad to face the table",
-                    distance_to_table, to_turn);
+          double to_turn = tk::wrapAngle(heading_to_site - tf::getYaw(robot_gb.getRotation()));
+          ROS_DEBUG("Already close to the site while going to next goal (%.2f m); just turn %.2f rad to face the site",
+                    distance_to_site, to_turn);
           if (std::abs(to_turn) > 0.3)
             turn(to_turn);
 
           return cleanupAndSuccess("kaku.wav");
         }
-        else if (distance_to_goal < close_to_delivery_distance_)
+        else if (distance_to_goal < close_to_operation_distance_)
         {
-          // When close enough to the table, switch off recovery behavior so planner immediately fails if the
-          // desired delivery point is busy; if not, robot will spin instead of looking for a different point
+          // When close enough to the site, switch off recovery behavior so planner immediately fails if the
+          // desired operation point is busy; if not, robot will spin instead of looking for a different point
           if (recovery_behavior_ == true)
           {
-            ROS_DEBUG("Close enough to the delivery point (%.2f < %.2f m); switch off recovery behavior",
-                      distance_to_goal, close_to_delivery_distance_);
+            ROS_DEBUG("Close enough to the operation point (%.2f < %.2f m); switch off recovery behavior",
+                      distance_to_goal, close_to_operation_distance_);
 
             if (disableRecovery() == false)
             {
-              ROS_WARN("Robot will stupidly spin for a while before deciding that a delivery point is busy");
+              ROS_WARN("Robot will stupidly spin for a while before deciding that a operation point is busy");
             }
           }
 
-          // We also start checking our heading to the table, so if it changes a lot, and we are not very close,
-          // we replan our approaching point to the table
+          // We also start checking our heading to the site, so if it changes a lot, and we are not very close,
+          // we replan our approaching point to the site
           // Note: we can cancel goal only when recovery behavior is disabled; if not it takes ages to work!
-          if ((std::abs(last_plan_heading_to_table - heading_to_table) > 0.5) &&
-              (distance_to_table > 3*table_radius) && (recovery_behavior_ == false))
+          if ((std::abs(last_plan_heading_to_site - heading_to_site) > 0.5) &&
+              (distance_to_site > 3*site_radius) && (recovery_behavior_ == false))
           {
-            ROS_DEBUG("Heading to the table has notably changed (%.2f -> %.2f m); replan approach point",
-                      last_plan_heading_to_table, heading_to_table);
+            ROS_DEBUG("Heading to the site has notably changed (%.2f -> %.2f m); replan approach point",
+                      last_plan_heading_to_site, heading_to_site);
             if (cancelAllGoals(move_base_ac_) == false)
               ROS_WARN("Aish... we should not be here; nothing good is gonna happen...");  // TODO do I really need to cancel?  cannot just preempt?
             break;
@@ -652,7 +652,7 @@ bool Navigator::deliverOrder(const geometry_msgs::PoseStamped& table_pose, doubl
       else
       {
         // Go to pose timeout... assuming it's long enough, we must be really lost; TODO notify nav watchdog
-        ROS_WARN("Cannot reach delivery point after %.2f seconds; current state is %s. Aborting...",
+        ROS_WARN("Cannot reach operation point after %.2f seconds; current state is %s. Aborting...",
                  go_to_pose_timeout_, move_base_ac_.getState().toString().c_str());
         return cleanupAndError();
       }
@@ -664,37 +664,37 @@ bool Navigator::deliverOrder(const geometry_msgs::PoseStamped& table_pose, doubl
 
     if (move_base_ac_.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
     {
-      ROS_INFO("At delivery point! Waiting for user confirmation...");
+      ROS_INFO("At operation point! Waiting for user confirmation...");
       return cleanupAndSuccess("kaku.wav");
     }
     else if (move_base_ac_.getState() == actionlib::SimpleClientGoalState::PREEMPTED)
     {
       // Previous goal has been cancelled around 30 lines before
-      ROS_DEBUG("Move base action preempted so we are replaning our approaching point to the table");
+      ROS_DEBUG("Move base action preempted so we are replaning our approaching point to the site");
     }
     else if (move_base_ac_.getState() == actionlib::SimpleClientGoalState::ABORTED)
     {
       attempts++;
 
-      if ((recovery_behavior_ == true) && (distance_to_goal > close_to_delivery_distance_*1.1))
+      if ((recovery_behavior_ == true) && (distance_to_goal > close_to_operation_distance_*1.1))
       {
         // If this happen so early, something must be really wrong; anyway we will retry planning 3 times
-        ROS_WARN("Move base aborted still at %.2f m from delivery point (we expect this to happen closer than %.2f m)",
-                 distance_to_goal, close_to_delivery_distance_);
+        ROS_WARN("Move base aborted still at %.2f m from operation point (we expect this to happen closer than %.2f m)",
+                 distance_to_goal, close_to_operation_distance_);
         if (attempts > 3)
           return cleanupAndError();
       }
       else if (( max_tried_heading - min_tried_heading) > (2.0*M_PI - heading_increment))
       {
-        // Busy sector surrounds the table! use our crappy delivery fallback;  maybe increase tables_serving_distance_ and retry???  TODO-OOOOOOOOOOOOOOOOO!!!!
-        ROS_INFO("All delivery points looks busy (%d attempts). Just stand and cry...", attempts);
+        // Busy sector surrounds the site! use our crappy operation fallback;  maybe increase sites_serving_distance_ and retry???  TODO-OOOOOOOOOOOOOOOOO!!!!
+        ROS_INFO("All operation points looks busy (%d attempts). Just stand and cry...", attempts);
         return cleanupAndSuccess("kaku.wav");
       }
       else
       {
         ROS_WARN("Delivery point looks busy; try another one (%d attempts)", attempts);
 
-        // Delivery point looks busy; increase the already tried sector so the planner can choose a new delivery point
+        // Delivery point looks busy; increase the already tried sector so the planner can choose a new operation point
         // Note that we wrap busy sector thresholds from -2*pi to +2*pi to deal with the -pi/+pi singularity
         min_tried_heading = std::min(min_tried_heading, heading_to_goal - heading_increment);
         max_tried_heading = std::max(max_tried_heading, heading_to_goal + heading_increment);
@@ -709,7 +709,7 @@ bool Navigator::deliverOrder(const geometry_msgs::PoseStamped& table_pose, doubl
     else
     {
       // Something else (surely nasty) happen; just give up
-      ROS_WARN("Unexpected goal state: %s. Go to delivery point failed", move_base_ac_.getState().toString().c_str());
+      ROS_WARN("Unexpected goal state: %s. Go to operation point failed", move_base_ac_.getState().toString().c_str());
       return cleanupAndError();
     }
   } while (true);

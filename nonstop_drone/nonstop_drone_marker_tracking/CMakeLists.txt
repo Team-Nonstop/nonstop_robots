@@ -1,14 +1,15 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(sniperbot)
+project(nonstop_drone_marker_tracking)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED COMPONENTS actionlib actionlib_msgs ar_track_alvar sensor_msgs)
+find_package(catkin REQUIRED COMPONENTS geometry_msgs message_filters nav_msgs rosconsole roscpp rospy tf visualization_msgs)
 
 ## System dependencies are found with CMake's conventions
- find_package(Boost REQUIRED COMPONENTS system)
-
+find_package(Boost REQUIRED COMPONENTS signals)
+find_package(PkgConfig)
+pkg_search_module(REQUIRED yaml-cpp)
 
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
@@ -36,7 +37,7 @@ find_package(catkin REQUIRED COMPONENTS actionlib actionlib_msgs ar_track_alvar 
 ## Generate added messages and services with any dependencies listed here
 # generate_messages(
 #   DEPENDENCIES
-#   actionlib_msgs#   move_base_msgs#   sensor_msgs
+#   geometry_msgs#   nav_msgs#   visualization_msgs
 # )
 
 ###################################
@@ -50,9 +51,9 @@ find_package(catkin REQUIRED COMPONENTS actionlib actionlib_msgs ar_track_alvar 
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
   INCLUDE_DIRS include
-  LIBRARIES sniperbot
-  CATKIN_DEPENDS actionlib actionlib_msgs ar_track_alvar move_base_msgs sensor_msgs
-  DEPENDS system_lib
+  LIBRARIES nonstop_drone_marker_tracking_
+#  CATKIN_DEPENDS geometry_msgs message_filters nav_msgs rosconsole roscpp rospy tf visualization_msgs
+  DEPENDS yaml-cpp
 )
 
 ###########
@@ -62,46 +63,31 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 # include_directories(include)
-include_directories(include ${catkin_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS})
+include_directories(
+  include
+  ${catkin_INCLUDE_DIRS}
+  ${yaml-cpp_INCLUDE_DIRS}
+)
 
 ## Declare a cpp library
-# add_library(sniperbot
-#   src/${PROJECT_NAME}/sniperbot.cpp
-# )
+ add_library(nonstop_drone_marker_tracking_
+   src/tracking_marker_data.cpp
+ )
 
 ## Declare a cpp executable
-
-
-
-###################FOGI##############################33
-
-##
-#
-
-#add_executable(sniperbot_node src/sniper_node.cpp src/sniper_callbacks.cpp src/ar_markers.cpp src/nav_watchdog.cpp src/navigator.cpp src/common.cpp)
-##
-#
-
-##
-#
-######################################################3
-#src/sniper_tasks.cpp src/sniper_shot_handles.cpp
-
-
-
-
-#add_dependencies(sniperbot_node cafe_msgs_generate_messages_cpp)
+ add_executable(marker_tracking src/marker_tracking.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
-# add_dependencies(sniperbot_node sniperbot_generate_messages_cpp)
+# add_dependencies(nonstop_drone_marker_tracking_node nonstop_drone_marker_tracking_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
-
-#target_link_libraries(sniper_node
-#  ${catkin_LIBRARIES}
-#)
-
+ target_link_libraries(marker_tracking
+   ${catkin_LIBRARIES}
+   ${Boost_LIBRARIES}
+   yaml-cpp
+   nonstop_drone_marker_tracking_
+ )
 
 #############
 ## Install ##
@@ -117,33 +103,30 @@ include_directories(include ${catkin_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS})
 #   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 # )
 
-## Mark executables and/or libraries for installation
-# install(TARGETS sniperbot sniperbot_node
-#   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-#   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-#   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-# )
 
-## Mark cpp header files for installation
-# install(DIRECTORY include/${PROJECT_NAME}/
-#   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-#   FILES_MATCHING PATTERN "*.h"
-#   PATTERN ".svn" EXCLUDE
-# )
+install(
+    TARGETS
+        marker_tracking
+    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
 
-## Mark other files for installation (e.g. launch and bag files, etc.)
-# install(FILES
-#   # myfile1
-#   # myfile2
-#   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
-# )
+install(DIRECTORY
+        param
+    DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+)
+
+install(DIRECTORY 
+        include/${PROJECT_NAME}/
+    DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+)
+
 
 #############
 ## Testing ##
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_sniperbot.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_nonstop_drone_marker_tracking.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()

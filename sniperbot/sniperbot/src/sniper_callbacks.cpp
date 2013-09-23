@@ -12,7 +12,7 @@
 namespace sniperbot
 {
 
-void SniperNode::sitePosesCB(const semantic_region_handler::TablePoseList::ConstPtr& msg)
+void SniperNode::sitePosesCB(const semantic_region_handler_nonstop::SitePoseList::ConstPtr& msg)
 {
   // Just take first message; ignore the rest, as global markers list is not dynamic
   if ((site_poses_.sites.size() == 0) && (msg->sites.size() > 0))
@@ -89,7 +89,7 @@ void SniperNode::coreSensorsCB(const kobuki_msgs::SensorState::ConstPtr& msg)
   core_sensors_ = *msg;
 }
 
-void SniperNode::operationMissionCB()
+void SniperNode::operationalMissionCB()
 {
   if (mission_.status != nonstop_msgs::Status::IDLE)
   {

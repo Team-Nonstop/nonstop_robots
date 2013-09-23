@@ -1,13 +1,13 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(sniperbot)
+project(nonstop_drone_node)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED COMPONENTS actionlib actionlib_msgs ar_track_alvar sensor_msgs)
+find_package(catkin REQUIRED COMPONENTS geometry_msgs roscpp rospy)
 
 ## System dependencies are found with CMake's conventions
- find_package(Boost REQUIRED COMPONENTS system)
+# find_package(Boost REQUIRED COMPONENTS system)
 
 
 ## Uncomment this if the package has a setup.py. This macro ensures
@@ -36,7 +36,7 @@ find_package(catkin REQUIRED COMPONENTS actionlib actionlib_msgs ar_track_alvar 
 ## Generate added messages and services with any dependencies listed here
 # generate_messages(
 #   DEPENDENCIES
-#   actionlib_msgs#   move_base_msgs#   sensor_msgs
+#   std_msgs  # Or other packages containing msgs
 # )
 
 ###################################
@@ -49,10 +49,10 @@ find_package(catkin REQUIRED COMPONENTS actionlib actionlib_msgs ar_track_alvar 
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-  INCLUDE_DIRS include
-  LIBRARIES sniperbot
-  CATKIN_DEPENDS actionlib actionlib_msgs ar_track_alvar move_base_msgs sensor_msgs
-  DEPENDS system_lib
+#  INCLUDE_DIRS include
+#  LIBRARIES nonstop_drone_node
+#  CATKIN_DEPENDS other_catkin_pkg
+#  DEPENDS system_lib
 )
 
 ###########
@@ -62,46 +62,23 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 # include_directories(include)
-include_directories(include ${catkin_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS})
 
 ## Declare a cpp library
-# add_library(sniperbot
-#   src/${PROJECT_NAME}/sniperbot.cpp
+# add_library(nonstop_drone_node
+#   src/${PROJECT_NAME}/nonstop_drone_node.cpp
 # )
 
 ## Declare a cpp executable
-
-
-
-###################FOGI##############################33
-
-##
-#
-
-#add_executable(sniperbot_node src/sniper_node.cpp src/sniper_callbacks.cpp src/ar_markers.cpp src/nav_watchdog.cpp src/navigator.cpp src/common.cpp)
-##
-#
-
-##
-#
-######################################################3
-#src/sniper_tasks.cpp src/sniper_shot_handles.cpp
-
-
-
-
-#add_dependencies(sniperbot_node cafe_msgs_generate_messages_cpp)
+# add_executable(nonstop_drone_node src/nonstop_drone_node.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
-# add_dependencies(sniperbot_node sniperbot_generate_messages_cpp)
+# add_dependencies(nonstop_drone_node nonstop_drone_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
-
-#target_link_libraries(sniper_node
-#  ${catkin_LIBRARIES}
-#)
-
+# target_link_libraries(nonstop_drone_node
+#   ${catkin_LIBRARIES}
+# )
 
 #############
 ## Install ##
@@ -118,7 +95,7 @@ include_directories(include ${catkin_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS})
 # )
 
 ## Mark executables and/or libraries for installation
-# install(TARGETS sniperbot sniperbot_node
+# install(TARGETS nonstop_drone_node nonstop_drone_node
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
@@ -143,7 +120,7 @@ include_directories(include ${catkin_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS})
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_sniperbot.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_nonstop_drone.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()

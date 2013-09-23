@@ -41,10 +41,10 @@
   </xacro:macro>
   
   <xacro:macro name="marker_bundle_1" params="parent">
-    <attached_marker parent="${parent}" marker_num="0" direction="front" x_loc= "0.08" y_loc= "0.073" z_loc="0.253" r_deg="0" p_deg="1.570795" y_deg="0"/>
-    <attached_marker parent="${parent}" marker_num="1" direction="backward" x_loc= "-0.165" y_loc= "0" z_loc="0.253" r_deg="3.14159" p_deg="1.570795" y_deg="0"/>
-    <attached_marker parent="${parent}" marker_num="2" direction="left" x_loc="0" y_loc= "-0.17" z_loc="0.253" r_deg="3.14159" p_deg="1.570795" y_deg="1.570795"/>
-    <attached_marker parent="${parent}" marker_num="3" direction="right" x_loc= "0" y_loc="0.17" z_loc="0.253" r_deg="0" p_deg="1.570795" y_deg="1.570795"/>  
+    <attached_marker parent="${parent}" marker_num="4" direction="front" x_loc= "-0.08" y_loc= "0.073" z_loc="0.253" r_deg="1.570795" p_deg="0" y_deg="1.570795"/>
+    <attached_marker parent="${parent}" marker_num="7" direction="backward" x_loc= "-0.165" y_loc= "0" z_loc="0.253" r_deg="1.570795" p_deg="0" y_deg="-1.570795"/>
+    <attached_marker parent="${parent}" marker_num="6" direction="left" x_loc="0" y_loc= "-0.17" z_loc="0.253" r_deg="1.570795" p_deg="0" y_deg="0"/>
+    <attached_marker parent="${parent}" marker_num="5" direction="right" x_loc= "0" y_loc="0.17" z_loc="0.253" r_deg="1.570795" p_deg="0" y_deg="3.141592"/>  
   </xacro:macro>
 
 

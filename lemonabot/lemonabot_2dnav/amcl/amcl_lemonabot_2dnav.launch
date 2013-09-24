@@ -35,9 +35,9 @@
   <param name="recovery_alpha_fast" value="0.0"/>
 
   <!-- mrl_arena -->
-  <param name="initial_pose_x" value="0.5"/>
-  <param name="initial_pose_y" value="0.75"/>
-  <param name="initial_pose_a" value="1.57"/> 
+  <param name="initial_pose_x" value="0.00000"/>
+  <param name="initial_pose_y" value="0.00000"/>
+  <param name="initial_pose_a" value="0.00000"/> 
 
 </node>
 </launch>
